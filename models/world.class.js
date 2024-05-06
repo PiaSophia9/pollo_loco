@@ -9,6 +9,22 @@ class World {
   keyboard;
   camera_x = 0;
   throwableObjects = [];
+  collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250)]; // Todo: rename "bottles"
+  collectableCoins = [
+    new Coin(300, 100),
+    new Coin(330, 150),
+    new Coin(360, 100),
+    new Coin(600, 250),
+    new Coin(700, 250),
+    new Coin(800, 250),
+    new Coin(900, 250),
+    new Coin(1000, 250),
+    new Coin(1100, 200),
+    new Coin(1200, 150),
+    new Coin(1300, 100),
+    new Coin(1400, 150),
+    new Coin(1500, 200),
+  ];
 
   constructor(canvas, keyboard) {
     this.ctx = canvas.getContext("2d");
@@ -42,6 +58,41 @@ class World {
     this.level.endboss.forEach((enemy) => {
       this.reduceEnergy(enemy, "26");
     });
+
+    // Todo: collectable object should be in level and level1
+    this.collectableBottles.forEach((collectable) => {
+      this.increaseBottles(collectable, "21");
+    });
+
+    this.collectableCoins.forEach((collectable) => {
+      this.increaseCoins(collectable, "5");
+    });
+  }
+
+  increaseBottles(collectable, increase) {
+    if (this.character.isColliding(collectable)) {
+      increase = parseInt(increase);
+      this.character.bottles += increase;
+      this.statusBarBottles.setPercentage(this.character.bottles);
+      console.log(this.character.bottles);
+      this.indexCollectables = this.collectableBottles.indexOf(collectable);
+      if (this.indexCollectables !== -1) {
+        this.collectableBottles.splice(this.indexCollectables, 1);
+      }
+    }
+  }
+
+  increaseCoins(collectable, increase) {
+    if (this.character.isColliding(collectable)) {
+      increase = parseInt(increase);
+      this.character.coins += increase;
+      this.statusBarCoins.setPercentage(this.character.coins);
+      console.log(this.character.coins);
+      this.indexCollectables = this.collectableCoins.indexOf(collectable);
+      if (this.indexCollectables !== -1) {
+        this.collectableCoins.splice(this.indexCollectables, 1);
+      }
+    }
   }
 
   reduceEnergy(enemy, damage) {
@@ -65,11 +116,14 @@ class World {
     this.addObjectsToMap(this.level.backgroundobjects);
 
     this.addToMap(this.character);
+
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.bigChicken);
     this.addObjectsToMap(this.level.smallChicken);
     this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
+    this.addObjectsToMap(this.collectableBottles);
+    this.addObjectsToMap(this.collectableCoins);
 
     this.ctx.translate(-this.camera_x, 0); // back
     this.addToMap(this.statusBarHealth);
@@ -98,7 +152,8 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawFrame(this.ctx);
+    mo.drawBlueFrame(this.ctx);
+    mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

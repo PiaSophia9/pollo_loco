@@ -3,6 +3,12 @@ class Endboss extends MovableObject {
   height = 300;
   x = 2100;
   y = 145;
+  offset = {
+    top: 90,
+    bottom: 30,
+    left: 10,
+    right: 30,
+  };
   chicken_sound = new Audio("./audio/chicken_sound.mp3");
   IMAGES_WALKING = [
     "img/4_enemie_boss_chicken/2_alert/G5.png",

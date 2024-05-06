@@ -1,4 +1,7 @@
 class CollectableObject extends DrawableObject {
-  width = 5;
-  height = 5;
+  width = 50;
+  height = 50;
+  x = 0;
+  y = 0;
+  otherDirection = false;
 }

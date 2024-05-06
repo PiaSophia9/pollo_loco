@@ -6,6 +6,14 @@ class Character extends MovableObject {
   speed = 10;
   longIdleTimeout;
   firstMomentOfNoAction;
+  bottles = 0;
+  coins = 0;
+  offset = {
+    top: 90,
+    bottom: 10,
+    left: 20,
+    right: 30,
+  };
 
   IMAGES_IDLE = [
     "./img/2_character_pepe/1_idle/idle/I-1.png",
