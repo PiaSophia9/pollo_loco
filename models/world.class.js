@@ -46,6 +46,9 @@ class World {
       // Todo: Die Healthbar oder das Abziehen der Energie braucht ein längeres Inetrvall
     }, 5);
     setInterval(() => {
+      this.checkCollisionEndboss();
+    }, 300);
+    setInterval(() => {
       this.checkThrowObjects();
     }, 1000 / 10);
   }
@@ -74,6 +77,25 @@ class World {
 
     this.collectableCoins.forEach((collectable) => {
       this.increaseCoins(collectable, "5");
+    });
+  }
+
+  checkCollisionEndboss() {
+    this.throwableObjects.forEach((throwableObject) => {
+      this.killEndboss(throwableObject);
+    });
+  }
+
+  killEndboss(throwableObject) {
+    this.level.endboss.forEach((endboss) => {
+      if (endboss.isColliding(throwableObject)) {
+        console.log("endboss is hit");
+        // redduce energy
+        // this.level.endboss.energy -= 26;
+        // if energy < 1 endbossDies
+        // dying-animation
+        // let endboss disapear
+      }
     });
   }
 
@@ -124,6 +146,8 @@ class World {
     });
   }
 
+  // killchickenWithBottle() {} Todo killChicken auslagern
+
   enemyDies(enemy) {
     enemy.energy = 0;
     enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
@@ -143,13 +167,19 @@ class World {
   }
 
   checkThrowObjects() {
-    if (this.keyboard.D) {
+    if (this.keyboard.D && this.character.bottles > 0) {
       if (this.character.otherDirection == false) {
-        let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3);
+        let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3, "right");
         this.throwableObjects.push(bottle);
+        if (this.character.bottles > 0) {
+          this.character.bottles -= 21;
+        }
       } else {
-        let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3);
+        let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3, "left");
         this.throwableObjects.push(bottle);
+        if (this.character.bottles > 0) {
+          this.character.bottles -= 21;
+        }
       }
     }
   }
