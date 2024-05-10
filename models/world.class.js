@@ -10,7 +10,6 @@ class World {
   camera_x = 0;
   characterJumpedOnChicken = false;
   throwableObjects = [];
-  // enemyStatus;
   collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250)]; // Todo: rename "bottles"
   collectableCoins = [
     new Coin(300, 100),
@@ -54,23 +53,11 @@ class World {
   checkCollisions() {
     this.level.bigChicken.forEach((enemy) => {
       this.killChicken(enemy, "bigChicken");
-      // if (!this.characterJumpedOnChicken == true) {
-      // this.reduceEnergy(enemy, "10");
-      // }
-      // this.characterJumpedOnChicken = false;
     });
 
     this.level.smallChicken.forEach((enemy) => {
       this.killChicken(enemy, "smallChicken");
-      // if (!this.characterJumpedOnChicken == true) {
-      // this.reduceEnergy(enemy, "5");
-      // }
-      // this.characterJumpedOnChicken = false;
     });
-
-    // this.level.smallChicken.forEach((enemy) => {
-    //   this.reduceEnergy(enemy, "5");
-    // });
 
     this.level.endboss.forEach((enemy) => {
       this.reduceEnergy(enemy, "26");
@@ -117,49 +104,24 @@ class World {
     }
   }
 
-  // killChicken(enemy, chickenType) {
-  //   if ((this.character.isColliding(enemy) && this.character.isAboveGround() && this.isMovingDownwards()) || enemy.energy == 0) {
-  //     // this.enemyStatus = "dead";
-  //     // this.characterJumpedOnChicken = true;
-  //     // this.character.isKilling = true;
-  //     enemy.energy = 0;
-  //     enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
-  //     setTimeout(() => {
-  //       let index = this.level[chickenType].indexOf(enemy);
-  //       if (index != -1) {
-  //         this.level[chickenType].splice(index, 1);
-  //         // this.enemyStatus = "";
-  //       }
-  //     }, 1000);
-  //     // } else if (this.character.isColliding(enemy) && !this.enemyStatus == "dead") {
-  //   } else if (this.character.isColliding(enemy)) {
-  //     this.reduceEnergy(enemy, "10");
-  //   }
-  // }
-
   killChicken(enemy, chickenType) {
     if ((this.character.isColliding(enemy) && this.character.isAboveGround() && this.isMovingDownwards()) || enemy.energy == 0) {
-      // this.enemyStatus = "dead";
-      // this.characterJumpedOnChicken = true;
-      // this.character.isKilling = true;
       enemy.energy = 0;
       enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
       setTimeout(() => {
         let index = this.level[chickenType].indexOf(enemy);
         if (index != -1) {
-          this.level[chickenType].splice(index, 1); // this.enemyStatus = "";
+          this.level[chickenType].splice(index, 1);
         }
-      }, 500); // } else if (this.character.isColliding(enemy) && !this.enemyStatus == "dead") {
+      }, 500);
     } else if (this.character.isColliding(enemy) && !enemy.energy == 0) {
       this.reduceEnergy(enemy, "10");
-      // enemy.playAnimation(enemy.IMAGES_WALKING);
     } else if (!enemy.energy == 0) {
-      // enemy.playAnimation(enemy.IMAGES_WALKING);
     }
   }
 
   isMovingDownwards() {
-    return this.character.speedY < 0; // Wenn die Geschwindigkeit in y-Richtung negativ ist, bewegt sich der Charakter von oben nach unten.
+    return this.character.speedY < 0;
   }
 
   checkThrowObjects() {
