@@ -164,8 +164,13 @@ class World {
 
   checkThrowObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3);
-      this.throwableObjects.push(bottle);
+      if (this.character.otherDirection == false) {
+        let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3, "right");
+        this.throwableObjects.push(bottle);
+      } else {
+        let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3, "left");
+        this.throwableObjects.push(bottle);
+      }
     }
   }
 
