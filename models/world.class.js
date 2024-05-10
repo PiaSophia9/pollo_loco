@@ -71,6 +71,8 @@ class World {
     this.collectableCoins.forEach((collectable) => {
       this.increaseCoins(collectable, "5");
     });
+
+    // collision between throwable and enemy
   }
 
   increaseBottles(collectable, increase) {
@@ -106,18 +108,27 @@ class World {
 
   killChicken(enemy, chickenType) {
     if ((this.character.isColliding(enemy) && this.character.isAboveGround() && this.isMovingDownwards()) || enemy.energy == 0) {
-      enemy.energy = 0;
-      enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
-      setTimeout(() => {
-        let index = this.level[chickenType].indexOf(enemy);
-        if (index != -1) {
-          this.level[chickenType].splice(index, 1);
-        }
-      }, 500);
+      this.enemyDies(enemy);
+      this.deadEnemyDisapears(enemy, chickenType);
     } else if (this.character.isColliding(enemy) && !enemy.energy == 0) {
       this.reduceEnergy(enemy, "10");
-    } else if (!enemy.energy == 0) {
     }
+    // else if (!enemy.energy == 0) {
+    // }
+  }
+
+  enemyDies(enemy) {
+    enemy.energy = 0;
+    enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
+  }
+
+  deadEnemyDisapears(enemy, chickenType) {
+    setTimeout(() => {
+      let index = this.level[chickenType].indexOf(enemy);
+      if (index != -1) {
+        this.level[chickenType].splice(index, 1);
+      }
+    }, 500);
   }
 
   isMovingDownwards() {
