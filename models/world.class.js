@@ -164,8 +164,8 @@ class World {
 
   checkThrowObjects() {
     if (this.keyboard.D) {
-      let bottle = new ThrowableObject(this.character.x + 100, this.character.y + 100);
-      this.throwableObjects.push(new ThrowableObject());
+      let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3);
+      this.throwableObjects.push(bottle);
     }
   }
 
@@ -212,7 +212,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-    // mo.drawBlueFrame(this.ctx);
+    mo.drawBlueFrame(this.ctx);
     mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {
