@@ -44,6 +44,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       // Todo: Die Healthbar oder das Abziehen der Energie braucht ein längeres Inetrvall
+      this.endbossApproaches();
     }, 5);
     setInterval(() => {
       this.checkCollisionEndboss();
@@ -68,7 +69,7 @@ class World {
 
     // Todo: collectable object should be in level and level1
     this.collectableBottles.forEach((collectable) => {
-      this.increaseBottles(collectable, "21");
+      this.increaseBottles(collectable, "20");
     });
 
     this.collectableCoins.forEach((collectable) => {
@@ -86,15 +87,32 @@ class World {
     });
   }
 
+  endbossApproaches() {
+    if (this.character.x > 1490) {
+      // console.log("character over 1490");
+      // this.level.endboss[0].playAnimation(this.level.endboss[0].IMAGES_WALK);
+      this.level.endboss[0].characterIsClose = true; // Todo: check if needed
+      this.level.endboss[0].lastApproach = new Date().getTime();
+      // console.log(this.level.endboss.characterIsClose);
+    }
+    // else {
+    //   this.level.endboss[0].characterIsClose = false;
+    // }
+  }
+
   killEndboss(throwableObject) {
     this.level.endboss.forEach((endboss) => {
       if (endboss.isColliding(throwableObject)) {
-        console.log("energy before hit: ", endboss.energy);
-        endboss.energy -= 26;
-        console.log("energy after hit: ", endboss.energy);
+        // console.log("energy before hit: ", endboss.energy);
+        endboss.hit(26);
+        this.level.endboss.lastHit = new Date().getTime();
+        // console.log("energy after hit: ", endboss.energy);
+
         // if energy < 1 endbossDies
         // dying-animation
         // let endboss disapear
+      } else if (endboss.isColliding(this.character)) {
+        // console.log("endboss and character collide");
       }
     });
   }
@@ -102,8 +120,10 @@ class World {
   increaseBottles(collectable, increase) {
     if (this.character.isColliding(collectable)) {
       increase = parseInt(increase);
-      this.character.bottles += increase;
-      console.log("amount of bottles: ", this.character.bottles);
+      if (this.character.bottles < 100) {
+        this.character.bottles += increase;
+      }
+      // console.log("collected bottles", this.character.bottles);
       this.statusBarBottles.setPercentage(this.character.bottles);
       this.indexCollectables = this.collectableBottles.indexOf(collectable);
       if (this.indexCollectables !== -1) {
@@ -125,9 +145,24 @@ class World {
   }
 
   reduceEnergy(enemy, damage) {
+    if (!this.character.isColliding(enemy)) {
+      enemy.isCollidingWithCharacter = false;
+    }
     if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
       this.character.hit(damage);
       this.statusBarHealth.setPercentage(this.character.energy);
+      if (enemy.constructor.name.startsWith("Endboss")) {
+        // setInterval(() => {
+        enemy.isCollidingWithCharacter = true;
+        enemy.playAnimation(enemy.IMAGES_ATTACK);
+        // }, 1000);
+      }
+    }
+    if (this.character.x - this.character.offset.left > enemy.x + 200) {
+      // CouldDo alternative: Character moved left or x -100
+      enemy.otherDirection = true;
+    } else {
+      enemy.otherDirection = false;
     }
   }
 
@@ -195,10 +230,10 @@ class World {
     this.addObjectsToMap(this.level.clouds);
     this.addObjectsToMap(this.level.bigChicken);
     this.addObjectsToMap(this.level.smallChicken);
-    this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
     this.addObjectsToMap(this.collectableBottles); // todo: Put into level
     this.addObjectsToMap(this.collectableCoins); // todo: Put into level
+    this.addObjectsToMap(this.level.endboss);
 
     this.ctx.translate(-this.camera_x, 0); // back
     this.addToMap(this.statusBarHealth);
@@ -227,8 +262,8 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawBlueFrame(this.ctx);
-    mo.drawRedFrame(this.ctx);
+    // mo.drawBlueFrame(this.ctx);
+    // mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);
