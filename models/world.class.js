@@ -8,7 +8,9 @@ class World {
   statusBarBottles = new StatusBarBottle();
   keyboard;
   camera_x = 0;
+  characterJumpedOnChicken = false;
   throwableObjects = [];
+  // enemyStatus;
   collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250)]; // Todo: rename "bottles"
   collectableCoins = [
     new Coin(300, 100),
@@ -42,18 +44,33 @@ class World {
   run() {
     setInterval(() => {
       this.checkCollisions();
+      // Todo: Die Healthbar oder das Abziehen der Energie braucht ein längeres Inetrvall
+    }, 5);
+    setInterval(() => {
       this.checkThrowObjects();
-    }, 200);
+    }, 1000 / 10);
   }
 
   checkCollisions() {
     this.level.bigChicken.forEach((enemy) => {
-      this.reduceEnergy(enemy, "10");
+      this.killChicken(enemy, "bigChicken");
+      // if (!this.characterJumpedOnChicken == true) {
+      // this.reduceEnergy(enemy, "10");
+      // }
+      // this.characterJumpedOnChicken = false;
     });
 
     this.level.smallChicken.forEach((enemy) => {
-      this.reduceEnergy(enemy, "5");
+      this.killChicken(enemy, "smallChicken");
+      // if (!this.characterJumpedOnChicken == true) {
+      // this.reduceEnergy(enemy, "5");
+      // }
+      // this.characterJumpedOnChicken = false;
     });
+
+    // this.level.smallChicken.forEach((enemy) => {
+    //   this.reduceEnergy(enemy, "5");
+    // });
 
     this.level.endboss.forEach((enemy) => {
       this.reduceEnergy(enemy, "26");
@@ -74,7 +91,6 @@ class World {
       increase = parseInt(increase);
       this.character.bottles += increase;
       this.statusBarBottles.setPercentage(this.character.bottles);
-      console.log(this.character.bottles);
       this.indexCollectables = this.collectableBottles.indexOf(collectable);
       if (this.indexCollectables !== -1) {
         this.collectableBottles.splice(this.indexCollectables, 1);
@@ -87,7 +103,6 @@ class World {
       increase = parseInt(increase);
       this.character.coins += increase;
       this.statusBarCoins.setPercentage(this.character.coins);
-      console.log(this.character.coins);
       this.indexCollectables = this.collectableCoins.indexOf(collectable);
       if (this.indexCollectables !== -1) {
         this.collectableCoins.splice(this.indexCollectables, 1);
@@ -96,10 +111,55 @@ class World {
   }
 
   reduceEnergy(enemy, damage) {
-    if (this.character.isColliding(enemy)) {
+    if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
       this.character.hit(damage);
       this.statusBarHealth.setPercentage(this.character.energy);
     }
+  }
+
+  // killChicken(enemy, chickenType) {
+  //   if ((this.character.isColliding(enemy) && this.character.isAboveGround() && this.isMovingDownwards()) || enemy.energy == 0) {
+  //     // this.enemyStatus = "dead";
+  //     // this.characterJumpedOnChicken = true;
+  //     // this.character.isKilling = true;
+  //     enemy.energy = 0;
+  //     enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
+  //     setTimeout(() => {
+  //       let index = this.level[chickenType].indexOf(enemy);
+  //       if (index != -1) {
+  //         this.level[chickenType].splice(index, 1);
+  //         // this.enemyStatus = "";
+  //       }
+  //     }, 1000);
+  //     // } else if (this.character.isColliding(enemy) && !this.enemyStatus == "dead") {
+  //   } else if (this.character.isColliding(enemy)) {
+  //     this.reduceEnergy(enemy, "10");
+  //   }
+  // }
+
+  killChicken(enemy, chickenType) {
+    if ((this.character.isColliding(enemy) && this.character.isAboveGround() && this.isMovingDownwards()) || enemy.energy == 0) {
+      // this.enemyStatus = "dead";
+      // this.characterJumpedOnChicken = true;
+      // this.character.isKilling = true;
+      enemy.energy = 0;
+      enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
+      setTimeout(() => {
+        let index = this.level[chickenType].indexOf(enemy);
+        if (index != -1) {
+          this.level[chickenType].splice(index, 1); // this.enemyStatus = "";
+        }
+      }, 500); // } else if (this.character.isColliding(enemy) && !this.enemyStatus == "dead") {
+    } else if (this.character.isColliding(enemy) && !enemy.energy == 0) {
+      this.reduceEnergy(enemy, "10");
+      // enemy.playAnimation(enemy.IMAGES_WALKING);
+    } else if (!enemy.energy == 0) {
+      // enemy.playAnimation(enemy.IMAGES_WALKING);
+    }
+  }
+
+  isMovingDownwards() {
+    return this.character.speedY < 0; // Wenn die Geschwindigkeit in y-Richtung negativ ist, bewegt sich der Charakter von oben nach unten.
   }
 
   checkThrowObjects() {
@@ -122,8 +182,8 @@ class World {
     this.addObjectsToMap(this.level.smallChicken);
     this.addObjectsToMap(this.level.endboss);
     this.addObjectsToMap(this.throwableObjects);
-    this.addObjectsToMap(this.collectableBottles);
-    this.addObjectsToMap(this.collectableCoins);
+    this.addObjectsToMap(this.collectableBottles); // todo: Put into level
+    this.addObjectsToMap(this.collectableCoins); // todo: Put into level
 
     this.ctx.translate(-this.camera_x, 0); // back
     this.addToMap(this.statusBarHealth);
@@ -152,7 +212,7 @@ class World {
     }
 
     mo.draw(this.ctx);
-    mo.drawBlueFrame(this.ctx);
+    // mo.drawBlueFrame(this.ctx);
     mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {

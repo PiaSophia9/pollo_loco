@@ -3,7 +3,6 @@ class MovableObject extends DrawableObject {
   otherDirection = false;
   speedY = 0;
   acceleration = 2.5;
-  energy = 100;
   lastHit = 0;
   // offset = {};
 
@@ -37,6 +36,14 @@ class MovableObject extends DrawableObject {
     );
   }
 
+  characterKills(mo) {
+    return this.y + this.height - this.offset.bottom > mo.y + mo.offset.top && this.y + this.offset.top < mo.y + mo.height - mo.offset.bottom;
+  }
+
+  // isCollidingBottomTop(mo) {
+  //   return this.y + this.height - this.offset.bottom > mo.y - mo.offset.top && this.x + this.offset.left > mo.x + mo.offset.left && this.x + this.offset.left < mo.x + mo.width - mo.offset.right;
+  // }
+
   hit(energyloss) {
     this.energy -= energyloss;
     if (this.energy < 0) {
@@ -65,6 +72,10 @@ class MovableObject extends DrawableObject {
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
+  }
+
+  showImage(image) {
+    this.img = this.imageCache[image];
   }
 
   moveRight() {

@@ -8,7 +8,11 @@ class DrawableObject {
   currentImage = 0;
 
   loadImage(path) {
+    // console.log("Loading image:", path);
     this.img = new Image(); // " this.img = document.getElementById('image') <img id= 'image' src> " is the same.
+    // this.img.onload = () => {
+    //   console.log("Image loaded successfully:", path);
+    // };
     this.img.src = path;
   }
 

@@ -1,5 +1,5 @@
 class Character extends MovableObject {
-  y = 80;
+  y = 0;
   x = 0;
   width = 100;
   height = 200;
@@ -8,6 +8,7 @@ class Character extends MovableObject {
   firstMomentOfNoAction;
   bottles = 0;
   coins = 0;
+  energy = 100;
   offset = {
     top: 90,
     bottom: 10,
@@ -118,7 +119,6 @@ class Character extends MovableObject {
       if (this.energy <= 0) {
         this.playAnimation(this.IMAGES_DYING);
       }
-      //   // animationPlayed = true; // nicht aus dem Video!
       if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
         this.firstMomentOfNoAction = new Date().getTime();
