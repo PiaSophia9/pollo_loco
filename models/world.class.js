@@ -89,9 +89,9 @@ class World {
   killEndboss(throwableObject) {
     this.level.endboss.forEach((endboss) => {
       if (endboss.isColliding(throwableObject)) {
-        console.log("endboss is hit");
-        // redduce energy
-        // this.level.endboss.energy -= 26;
+        console.log("energy before hit: ", endboss.energy);
+        endboss.energy -= 26;
+        console.log("energy after hit: ", endboss.energy);
         // if energy < 1 endbossDies
         // dying-animation
         // let endboss disapear
