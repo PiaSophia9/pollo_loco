@@ -72,13 +72,16 @@ class World {
       this.increaseCoins(collectable, "5");
     });
 
-    // collision between throwable and enemy
+    this.collectableCoins.forEach((collectable) => {
+      this.increaseCoins(collectable, "5");
+    });
   }
 
   increaseBottles(collectable, increase) {
     if (this.character.isColliding(collectable)) {
       increase = parseInt(increase);
       this.character.bottles += increase;
+      console.log("amount of bottles: ", this.character.bottles);
       this.statusBarBottles.setPercentage(this.character.bottles);
       this.indexCollectables = this.collectableBottles.indexOf(collectable);
       if (this.indexCollectables !== -1) {
@@ -113,8 +116,12 @@ class World {
     } else if (this.character.isColliding(enemy) && !enemy.energy == 0) {
       this.reduceEnergy(enemy, "10");
     }
-    // else if (!enemy.energy == 0) {
-    // }
+    this.throwableObjects.forEach((throwableObject) => {
+      if (throwableObject.isColliding(enemy)) {
+        this.enemyDies(enemy);
+        this.deadEnemyDisapears(enemy, chickenType);
+      }
+    });
   }
 
   enemyDies(enemy) {
@@ -138,10 +145,10 @@ class World {
   checkThrowObjects() {
     if (this.keyboard.D) {
       if (this.character.otherDirection == false) {
-        let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3, "right");
+        let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3);
         this.throwableObjects.push(bottle);
       } else {
-        let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3, "left");
+        let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3);
         this.throwableObjects.push(bottle);
       }
     }

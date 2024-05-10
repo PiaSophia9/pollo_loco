@@ -3,6 +3,7 @@ class Endboss extends MovableObject {
   height = 300;
   x = 2100;
   y = 145;
+  energy = 4;
   offset = {
     top: 90,
     bottom: 30,
