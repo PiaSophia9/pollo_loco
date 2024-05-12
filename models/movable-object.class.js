@@ -45,24 +45,37 @@ class MovableObject extends DrawableObject {
   // }
 
   hit(energyloss) {
-    this.energy -= energyloss;
-    if (this.energy < 0) {
-      this.energy = 0;
-    } else {
+    console.log("time since last hit", this.timeSinceLastHit());
+    if (this.timeSinceLastHit() > 0.5) {
       this.lastHit = new Date().getTime();
+      this.energy -= energyloss;
+      console.log("Enegyloss", this.energyloss, "Energy", this.energy);
+      if (this.energy < 0) {
+        this.energy = 0;
+      }
     }
   }
 
-  isHurt() {
+  timeSinceLastHit() {
     let timepassed = new Date().getTime() - this.lastHit; // difference in ms
     timepassed = timepassed / 1000; // sec
-    return timepassed < 1;
+    return timepassed;
+  }
+
+  isHurt() {
+    return this.timeSinceLastHit() < 1;
   }
 
   wasApproached() {
     let timepassed = new Date().getTime() - this.lastApproach; // difference in ms
     timepassed = timepassed / 1000; // sec
     return timepassed < 0.75;
+  }
+
+  characterWasCollidingEndboss() {
+    let timepassed = new Date().getTime() - this.firstMomentOfCollision; // difference in ms
+    timepassed = timepassed / 1000; // sec
+    return timepassed < 1;
   }
 
   isDead() {
@@ -99,4 +112,30 @@ class MovableObject extends DrawableObject {
   //   this.speedY = 30;
   //   this.x -= this.speed;
   // }
+
+  //jumpLeft() {
+  //   this.speedY = 30;
+  //  // this.speedX = 20;
+  //  this.applyGravity();
+  //  setInterval(() => {
+  //    this.x -= 10;
+  //  }, 60);
+  //}
+
+  jumpLeft() {
+    this.speedY = 10;
+    let startTime = new Date().getTime(); // Zeitpunkt des Funktionsaufrufs
+    let duration = 400; // Zeit in Millisekunden, für die die Bewegung ausgeführt werden soll
+
+    // Funktion für die Bewegung nach links
+    let moveLeft = () => {
+      if (new Date().getTime() - startTime < duration) {
+        this.x -= 5;
+        setTimeout(moveLeft, 15); // Wiederholte Ausführung der Funktion
+      }
+    };
+
+    // Starte die Bewegung nach links
+    moveLeft();
+  }
 }

@@ -64,7 +64,7 @@ class World {
     });
 
     this.level.endboss.forEach((enemy) => {
-      this.reduceEnergy(enemy, "26");
+      this.reduceEnergy(enemy, "40");
     });
 
     // Todo: collectable object should be in level and level1
@@ -73,12 +73,12 @@ class World {
     });
 
     this.collectableCoins.forEach((collectable) => {
-      this.increaseCoins(collectable, "5");
+      this.increaseCoins(collectable, "10");
     });
 
-    this.collectableCoins.forEach((collectable) => {
-      this.increaseCoins(collectable, "5");
-    });
+    //this.collectableCoins.forEach((collectable) => {
+    //  this.increaseCoins(collectable, "5");
+    //});
   }
 
   checkCollisionEndboss() {
@@ -104,14 +104,14 @@ class World {
     this.level.endboss.forEach((endboss) => {
       if (endboss.isColliding(throwableObject)) {
         // console.log("energy before hit: ", endboss.energy);
-        endboss.hit(26);
+        endboss.hit(40);
         this.level.endboss.lastHit = new Date().getTime();
         // console.log("energy after hit: ", endboss.energy);
 
         // if energy < 1 endbossDies
         // dying-animation
         // let endboss disapear
-      } else if (endboss.isColliding(this.character)) {
+        //} else if (endboss.isColliding(this.character)) {
         // console.log("endboss and character collide");
       }
     });
@@ -152,18 +152,26 @@ class World {
       this.character.hit(damage);
       this.statusBarHealth.setPercentage(this.character.energy);
       if (enemy.constructor.name.startsWith("Endboss")) {
-        // setInterval(() => {
-        enemy.isCollidingWithCharacter = true;
-        enemy.playAnimation(enemy.IMAGES_ATTACK);
-        // }, 1000);
+        //enemy.isCollidingWithCharacter = true; // do not work yet
+        this.character.isCollidingWithEndboss = true; // do not work yet
+        // this.character.jump();
+        // this.character.otherDirection = true;
+        // if (this.character.isAboveGround) {
+        //   this.character.x -= 20;
+        //  }
+        this.character.firstMomentOfCollision = new Date().getTime();
+        // this.character.jumpLeft();
+        // this.character.x -= this.character.speed;
+        //       this.camera_x = -this.character.x + 60 + 150;
       }
     }
-    if (this.character.x - this.character.offset.left > enemy.x + 200) {
-      // CouldDo alternative: Character moved left or x -100
-      enemy.otherDirection = true;
-    } else {
-      enemy.otherDirection = false;
-    }
+    // functions to make endboss follow
+    // if (this.character.x - this.character.offset.left > enemy.x + // 200) {
+    //   // CouldDo alternative: Character moved left or x -100
+    //   enemy.otherDirection = true;
+    // } else {
+    //   enemy.otherDirection = false;
+    // }
   }
 
   killChicken(enemy, chickenType) {

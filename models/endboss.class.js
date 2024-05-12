@@ -5,7 +5,7 @@ class Endboss extends MovableObject {
   y = 145;
   energy = 100;
   speed = 2;
-  lastHit;
+  //lastHit;
   isCollidingWithCharacter = false;
   characterIsClose = false;
   lastApproach;
@@ -68,7 +68,7 @@ class Endboss extends MovableObject {
           this.playAnimation(this.IMAGES_ALERT);
         }
       }
-    }, 300);
+    }, 200);
     setInterval(() => {
       // if (this.characterIsClose)) {
       if (this.wasApproached()) {
@@ -79,5 +79,10 @@ class Endboss extends MovableObject {
         }
       }
     }, 1000 / 60);
+    setInterval(() => {
+      //if (this.isCollidingWithCharacter == true && this.energy > 0) {
+      //  this.playAnimation(this.IMAGES_ATTACK);
+      //}
+    }, 300);
   }
 }

@@ -6,6 +6,8 @@ class Character extends MovableObject {
   speed = 10;
   longIdleTimeout;
   firstMomentOfNoAction;
+  isCollidingWithEndboss = false;
+  firstMomentOfCollision;
   bottles = 0;
   coins = 0;
   energy = 100;
@@ -130,6 +132,10 @@ class Character extends MovableObject {
           this.playAnimation(this.IMAGES_WALKING);
           this.firstMomentOfNoAction = new Date().getTime();
         }
+      }
+      // good function which does not work yet
+      if (this.isCollidingWithEndboss == true && this.characterWasCollidingEndboss() == true) {
+        this.jumpLeft();
       }
     }, 1000 / 10);
   }
