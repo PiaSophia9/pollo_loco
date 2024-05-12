@@ -52,6 +52,20 @@ class World {
     setInterval(() => {
       this.checkThrowObjects();
     }, 1000 / 10);
+    setInterval(() => {
+      this.showLooseScreen();
+    }, 1000 / 2.5);
+  }
+
+  gameOverScreenShown = false;
+
+  showLooseScreen() {
+    if (this.character.energy <= 0 && !this.gameOverScreenShown) {
+      setTimeout(() => {
+        console.log("show Game Over screen");
+        this.gameOverScreenShown = true;
+      }, 500);
+    }
   }
 
   checkCollisions() {

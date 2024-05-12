@@ -121,7 +121,7 @@ class Character extends MovableObject {
       if (this.energy <= 0) {
         this.playAnimation(this.IMAGES_DYING);
       }
-      if (this.isHurt()) {
+      if (this.isHurt() && this.energy > 0) {
         this.playAnimation(this.IMAGES_HURT);
         this.firstMomentOfNoAction = new Date().getTime();
       } else if (this.isAboveGround()) {
