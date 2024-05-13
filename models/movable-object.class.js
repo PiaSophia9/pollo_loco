@@ -123,12 +123,12 @@ class MovableObject extends DrawableObject {
   jumpLeft() {
     this.speedY = 10;
     let startTime = new Date().getTime(); // Zeitpunkt des Funktionsaufrufs
-    let duration = 400; // Zeit in Millisekunden, für die die Bewegung ausgeführt werden soll
+    let duration = 200; // Zeit in Millisekunden, für die die Bewegung ausgeführt werden soll
 
     // Funktion für die Bewegung nach links
     let moveLeft = () => {
       if (new Date().getTime() - startTime < duration) {
-        this.x -= 5;
+        this.x -= 4;
         setTimeout(moveLeft, 15); // Wiederholte Ausführung der Funktion
       }
     };

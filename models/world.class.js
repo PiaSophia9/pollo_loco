@@ -6,6 +6,7 @@ class World {
   statusBarHealth = new StatusBarHealth();
   statusBarCoins = new StatusBarCoins();
   statusBarBottles = new StatusBarBottle();
+  statusBarEndboss = new StatusBarEndboss();
   keyboard;
   camera_x = 0;
   characterJumpedOnChicken = false;
@@ -118,7 +119,8 @@ class World {
     this.level.endboss.forEach((endboss) => {
       if (endboss.isColliding(throwableObject)) {
         // console.log("energy before hit: ", endboss.energy);
-        endboss.hit(40);
+        endboss.hit(35);
+        this.statusBarEndboss.setPercentage(endboss.energy);
         this.level.endboss.lastHit = new Date().getTime();
         // console.log("energy after hit: ", endboss.energy);
 
@@ -137,7 +139,6 @@ class World {
       if (this.character.bottles < 100) {
         this.character.bottles += increase;
       }
-      // console.log("collected bottles", this.character.bottles);
       this.statusBarBottles.setPercentage(this.character.bottles);
       this.indexCollectables = this.collectableBottles.indexOf(collectable);
       if (this.indexCollectables !== -1) {
@@ -261,6 +262,7 @@ class World {
     this.addToMap(this.statusBarHealth);
     this.addToMap(this.statusBarCoins);
     this.addToMap(this.statusBarBottles);
+    this.addToMap(this.statusBarEndboss);
     this.ctx.translate(this.camera_x, 0); // forwards
 
     this.ctx.translate(-this.camera_x, 0);
