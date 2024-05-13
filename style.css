@@ -33,5 +33,46 @@ canvas {
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19); */
-  /* display: block; */
+  display: block;
+}
+
+.startScreen {
+  display: block;
+  background-image: url("./img/9_intro_outro_screens/start/startscreen_2.png");
+  background-size: 720px 480px;
+  background-repeat: no-repeat;
+  z-index: 2;
+  width: 720px;
+  height: 480px;
+  border-radius: 10px;
+}
+
+.d_none {
+  display: none;
+}
+
+@media only screen and (max-width: 720px) {
+  canvas {
+    width: 100%;
+    border-radius: 0;
+  }
+  h1 {
+    display: none;
+  }
+  .startScreen {
+    border-radius: 0;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  canvas {
+    height: 100vh;
+    border-radius: 0;
+  }
+  h1 {
+    display: none;
+  }
+  .startScreen {
+    border-radius: 0;
+  }
 }

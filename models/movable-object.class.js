@@ -73,7 +73,7 @@ class MovableObject extends DrawableObject {
   characterWasCollidingEndboss() {
     let timepassed = new Date().getTime() - this.firstMomentOfCollision; // difference in ms
     timepassed = timepassed / 1000; // sec
-    return timepassed < 1;
+    return timepassed < 0.2;
   }
 
   isDead() {
@@ -123,12 +123,12 @@ class MovableObject extends DrawableObject {
   jumpLeft() {
     this.speedY = 10;
     let startTime = new Date().getTime(); // Zeitpunkt des Funktionsaufrufs
-    let duration = 200; // Zeit in Millisekunden, für die die Bewegung ausgeführt werden soll
+    let duration = 600; // Zeit in Millisekunden, für die die Bewegung ausgeführt werden soll
 
     // Funktion für die Bewegung nach links
     let moveLeft = () => {
       if (new Date().getTime() - startTime < duration) {
-        this.x -= 4;
+        this.x -= 5;
         setTimeout(moveLeft, 15); // Wiederholte Ausführung der Funktion
       }
     };

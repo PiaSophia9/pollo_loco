@@ -1,8 +1,8 @@
 class Endboss extends MovableObject {
   width = 300;
-  height = 300;
-  x = 2100;
-  y = 145;
+  height = 400;
+  x = 2500;
+  y = 45;
   energy = 100;
   speed = 2;
   //lastHit;
@@ -10,7 +10,7 @@ class Endboss extends MovableObject {
   characterIsClose = false;
   lastApproach;
   offset = {
-    top: 90,
+    top: 0,
     bottom: 30,
     left: 10,
     right: 30,
@@ -56,33 +56,34 @@ class Endboss extends MovableObject {
 
   animate() {
     setInterval(() => {
-      // console.log("chacater is close in class: ", this.characterIsClose);
       if (this.isCollidingWithCharacter == false) {
         if (this.energy < 1) {
           this.playAnimation(this.IMAGES_DEAD);
         } else if (this.isHurt()) {
           this.playAnimation(this.IMAGES_HURT);
-        } else if (this.wasApproached()) {
+          // } else if (this.wasApproached()) {
+        } else if (this.characterIsClose) {
           this.playAnimation(this.IMAGES_WALK);
-        } else {
-          this.playAnimation(this.IMAGES_ALERT);
         }
+      } else if (this.isCollidingWithCharacter == true) {
+        this.playAnimation(this.IMAGES_ATTACK);
       }
     }, 200);
     setInterval(() => {
       // if (this.characterIsClose)) {
-      if (this.wasApproached()) {
-        if (this.otherDirection == false) {
-          this.moveLeft();
-        } else {
-          this.moveRight();
-        }
+      if (this.characterIsClose) {
+        // if (this.wasApproached()) {
+        // if (this.otherDirection == false) {
+        this.moveLeft();
+        // } else {
+        //   this.moveRight();
+        // }
       }
     }, 1000 / 60);
-    setInterval(() => {
-      //if (this.isCollidingWithCharacter == true && this.energy > 0) {
-      //  this.playAnimation(this.IMAGES_ATTACK);
-      //}
-    }, 300);
+    // setInterval(() => {
+    //   //if (this.isCollidingWithCharacter == true && this.energy > 0) {
+    //   //  this.playAnimation(this.IMAGES_ATTACK);
+    //   //}
+    // }, 300);
   }
 }

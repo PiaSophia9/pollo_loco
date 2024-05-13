@@ -11,7 +11,7 @@ class World {
   camera_x = 0;
   characterJumpedOnChicken = false;
   throwableObjects = [];
-  collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250)]; // Todo: rename "bottles"
+  collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250), new Bottle(2308, 180)]; // Todo: rename "bottles"
   collectableCoins = [
     new Coin(300, 100),
     new Coin(330, 150),
@@ -26,6 +26,12 @@ class World {
     new Coin(1300, 100),
     new Coin(1400, 150),
     new Coin(1500, 200),
+    new Coin(1600, 150),
+    new Coin(1700, 100),
+    new Coin(1800, 150),
+    new Coin(1900, 200),
+    new Coin(2000, 250),
+    new Coin(2100, 250),
   ];
 
   constructor(canvas, keyboard) {
@@ -88,7 +94,7 @@ class World {
     });
 
     this.collectableCoins.forEach((collectable) => {
-      this.increaseCoins(collectable, "10");
+      this.increaseCoins(collectable, "7");
     });
 
     //this.collectableCoins.forEach((collectable) => {
@@ -103,11 +109,12 @@ class World {
   }
 
   endbossApproaches() {
-    if (this.character.x > 1490) {
+    if (this.character.x > 1500) {
+      // if (this.level.endboss[0].x - this.character.x > 300)
       // console.log("character over 1490");
       // this.level.endboss[0].playAnimation(this.level.endboss[0].IMAGES_WALK);
       this.level.endboss[0].characterIsClose = true; // Todo: check if needed
-      this.level.endboss[0].lastApproach = new Date().getTime();
+      // this.level.endboss[0].lastApproach = new Date().getTime();
       // console.log(this.level.endboss.characterIsClose);
     }
     // else {
@@ -166,19 +173,24 @@ class World {
     if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
       this.character.hit(damage);
       this.statusBarHealth.setPercentage(this.character.energy);
-      if (enemy.constructor.name.startsWith("Endboss")) {
-        //enemy.isCollidingWithCharacter = true; // do not work yet
-        this.character.isCollidingWithEndboss = true; // do not work yet
-        // this.character.jump();
-        // this.character.otherDirection = true;
-        // if (this.character.isAboveGround) {
-        //   this.character.x -= 20;
-        //  }
-        this.character.firstMomentOfCollision = new Date().getTime();
-        // this.character.jumpLeft();
-        // this.character.x -= this.character.speed;
-        //       this.camera_x = -this.character.x + 60 + 150;
-      }
+      // if (enemy.constructor.name.startsWith("Endboss")) {
+      //   enemy.isCollidingWithCharacter = true; // do not work yet
+      //   // this.character.isCollidingWithEndboss = true; // do not work yet
+      //   // this.character.jump();
+      //   // this.character.otherDirection = true;
+      //   // if (this.character.isAboveGround) {
+      //   //   this.character.x -= 20;
+      //   //  }
+      //   // this.character.firstMomentOfCollision = new Date().getTime();
+      //   // this.character.jumpLeft();
+      //   // this.character.x -= this.character.speed;
+      //   //       this.camera_x = -this.character.x + 60 + 150;
+      // }
+    }
+    if (this.character.isColliding(enemy) && enemy.constructor.name.startsWith("Endboss")) {
+      this.character.isCollidingWithEndboss = true;
+      enemy.isCollidingWithCharacter = true;
+      this.character.firstMomentOfCollision = new Date().getTime();
     }
     // functions to make endboss follow
     // if (this.character.x - this.character.offset.left > enemy.x + // 200) {
@@ -230,13 +242,15 @@ class World {
         let bottle = new ThrowableObject(this.character.x + this.character.width - this.character.offset.right - 10, this.character.y + this.character.height / 3, "right");
         this.throwableObjects.push(bottle);
         if (this.character.bottles > 0) {
-          this.character.bottles -= 21;
+          this.character.bottles -= 20;
+          this.statusBarBottles.setPercentage(this.character.bottles);
         }
       } else {
         let bottle = new ThrowableObject(this.character.x - this.character.offset.left + 10, this.character.y + this.character.height / 3, "left");
         this.throwableObjects.push(bottle);
         if (this.character.bottles > 0) {
-          this.character.bottles -= 21;
+          this.character.bottles -= 20;
+          this.statusBarBottles.setPercentage(this.character.bottles);
         }
       }
     }
@@ -287,7 +301,7 @@ class World {
 
     mo.draw(this.ctx);
     // mo.drawBlueFrame(this.ctx);
-    // mo.drawRedFrame(this.ctx);
+    mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

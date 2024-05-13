@@ -2,7 +2,7 @@ class ChickenSmall extends MovableObject {
   width = 40;
   height = 40;
   energy = 1;
-  y = 372;
+  y = 380;
 
   offset = {
     top: 0,
@@ -17,9 +17,9 @@ class ChickenSmall extends MovableObject {
 
   IMAGE_DYING = ["./img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
 
-  constructor() {
+  constructor(x) {
     super().loadImage("./img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
-    this.x = 200 + Math.random() * 500;
+    this.x = x + 200 + Math.random() * 500;
     // this.y = 375 + Math.random() * 10;
     this.loadImages(this.IMAGES_WALKING);
     this.loadImages(this.IMAGE_DYING);

@@ -133,10 +133,12 @@ class Character extends MovableObject {
           this.firstMomentOfNoAction = new Date().getTime();
         }
       }
-      // good function which does not work yet
-      if (this.isCollidingWithEndboss == true && this.characterWasCollidingEndboss() == true) {
+      if (this.isCollidingWithEndboss && this.characterWasCollidingEndboss()) {
         this.jumpLeft();
       }
     }, 1000 / 10);
+    // setInterval(() => {
+
+    // }, 1000 / 200);
   }
 }
