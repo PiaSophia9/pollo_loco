@@ -32,8 +32,132 @@
     <script src="./js/game.js"></script>
   </head>
   <body onload="init()">
-    <h1>EL POLLO LOCO</h1>
-    <canvas class="d_none" id="canvas" width="720" height="480"></canvas>
-    <div class="startScreen" id="startStreen" width="720" height="480"></div>
+    <!-- <body> -->
+    <h1 class="margin_top">EL POLLO LOCO</h1>
+    <canvas class="d_none" id="canvas" width="720" height="480"> </canvas>
+    <!-- <div class="upper_btns_container_canvas" style="position: absolute; top: 10px; left: 10px">
+      <button><img src="./img/9_intro_outro_screens/icons/audio.png" alt="" /></button>
+    </div> -->
+
+    <div class="start_screen" id="startStreen">
+      <div class="upper_btns_container">
+        <button class="play_btn" id="playBtn" onclick="startScreenToPlayScreen()"><img src="./img/9_intro_outro_screens/icons/play.png" alt="" /></button>
+        <div class="d_flex">
+          <button onclick="showUserManual()"><img src="./img/9_intro_outro_screens/icons/joystick.png" alt="" /></button>
+        </div>
+      </div>
+      <div class="lower_btns_container">
+        <button onclick="showImprint()"><img src="./img/9_intro_outro_screens/icons/info.png" alt="" /></button>
+        <button><img src="./img/9_intro_outro_screens/icons/full_screen.png" alt="" /></button>
+      </div>
+    </div>
+
+    <div class="screen_with_back_button d_none" id="looseScreen">
+      <div class="width_720">
+        <button onclick="looseScreenToStartScreen()"><img class="img_back_menu" src="./img/9_intro_outro_screens/icons/back_to_menu.png" alt="" /></button>
+      </div>
+      <div class="container_win_loose_text">
+        <img class="win_loose_text" src="./img/9_intro_outro_screens/end/Game over A.png" alt="" />
+      </div>
+    </div>
+
+    <div class="screen_with_back_button d_none" id="winScreen">
+      <div class="width_720">
+        <button onclick="winScreenToStartScreen()"><img class="img_back_menu" src="./img/9_intro_outro_screens/icons/back_to_menu.png" alt="" /></button>
+      </div>
+      <div class="container_win_loose_text">
+        <img class="win_loose_text" src="./img/9_intro_outro_screens/end/You Win A.png" alt="" />
+      </div>
+    </div>
+
+    <div class="screen_with_back_button d_none" id="userManual">
+      <div class="width_720">
+        <button onclick="userManualToStartScreen()"><img class="img_back_menu" src="./img/9_intro_outro_screens/icons/back_to_menu.png" alt="" /></button>
+      </div>
+      <div class="">
+        <!-- todo: better name -->
+        <h1>How to play:</h1>
+        <div class="white_info_container">
+          <div class="key_container">
+            <p>Left:</p>
+            <img src="./img/9_intro_outro_screens/icons/left.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Right:</p>
+            <img src="./img/9_intro_outro_screens/icons/right.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Jump:</p>
+            <img src="./img/9_intro_outro_screens/icons/jump.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Throw:</p>
+            <img src="./img/9_intro_outro_screens/icons/letter-d.png" alt="" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="screen_with_back_button d_none" id="imprint">
+      <div class="width_720">
+        <button onclick="imprintToStartScreen()"><img class="img_back_menu" src="./img/9_intro_outro_screens/icons/back_to_menu.png" alt="" /></button>
+      </div>
+      <div class="center">
+        <!-- todo: better name -->
+        <div class="white_info_container imprint">
+          <div class="credits_container">
+            <h3>Imprint:</h3>
+            <br />
+            <p>Angaben gemäß 5 TMG</p>
+            <br />
+            <p>Sophia Brouwers</p>
+            <p>Süsterfeldstr. 24</p>
+            <p>52072 Aachen</p>
+            <br />
+            <p>0160 93891503</p>
+            <p>sophia.brouwers@gmx.de</p>
+            <br />
+          </div>
+          <div class="credits_container">
+            <h3>Credits:</h3>
+            <br />
+            <p>
+              <a target="_blank" href="https://icons8.com/icon/644/mute">Mute</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/25660/sound-speaker">Sound Speaker</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/2775/collapse-arrow">Collapse Arrow</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/59862/play">Play</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/9982/audio">Audio</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/9982/audio">Audio</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/0FvHf0Nf8v0t/ps-controller">Controller</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/gSGCduBA0sWQ/info">Info</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/111343/full-screen">Full Screen</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/VK37hVOLmmlA/vodka">Vodka</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/Oog1b0NP0g3x/arrow">Arrow</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              <a target="_blank" href="https://icons8.com/icon/mN0cPZctq65n/back">Back</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+
+              Music by <a href="https://pixabay.com/de/users/freegroove-20279938/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=113044">Francesco Biondi</a> from
+              <a href="https://pixabay.com/music//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=113044">Pixabay</a>
+
+              <a href="https://www.flaticon.com/free-icons/up" title="up icons">Up icons created by Roundicons Premium - Flaticon</a>
+
+              <a href="https://www.flaticon.com/free-icons/keyboard-command" title="keyboard command icons">Keyboard command icons created by shohanur.rahman13 - Flaticon</a>
+
+              <a href="https://www.flaticon.com/free-icons/keyboard-command" title="keyboard-command icons">Keyboard-command icons created by shohanur.rahman13 - Flaticon</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

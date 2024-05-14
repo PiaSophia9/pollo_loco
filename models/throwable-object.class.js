@@ -5,6 +5,8 @@ class ThrowableObject extends MovableObject {
     left: 13,
     right: 13,
   };
+  throw_sound = new Audio("./audio/shoot.mp3");
+
   constructor(x, y, characterDirection) {
     super().loadImage("./img/6_salsa_bottle/salsa_bottle.png");
     this.x = x; // TodDo: Not needed
@@ -13,6 +15,7 @@ class ThrowableObject extends MovableObject {
   }
 
   throw(x, y, characterDirection) {
+    this.throw_sound.play();
     x = x;
     y = y;
     this.height = 60;

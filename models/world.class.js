@@ -61,6 +61,7 @@ class World {
     }, 1000 / 10);
     setInterval(() => {
       this.showLooseScreen();
+      this.showWinScreen();
     }, 1000 / 2.5);
   }
 
@@ -70,7 +71,23 @@ class World {
     if (this.character.energy <= 0 && !this.gameOverScreenShown) {
       setTimeout(() => {
         console.log("show Game Over screen");
+        document.getElementById("canvas").classList.add("d_none");
+        document.getElementById("looseScreen").classList.remove("d_none");
         this.gameOverScreenShown = true;
+        clearAllIntervals();
+      }, 500);
+    }
+  }
+
+  winScreenShown = false;
+
+  showWinScreen() {
+    if (this.level.endboss[0].energy <= 0 && !this.winScreenShown) {
+      setTimeout(() => {
+        document.getElementById("canvas").classList.add("d_none");
+        document.getElementById("winScreen").classList.remove("d_none");
+        this.winScreenShown = true;
+        clearAllIntervals();
       }, 500);
     }
   }
@@ -144,6 +161,7 @@ class World {
     if (this.character.isColliding(collectable)) {
       increase = parseInt(increase);
       if (this.character.bottles < 100) {
+        collectable.bottle_sound.play();
         this.character.bottles += increase;
       }
       this.statusBarBottles.setPercentage(this.character.bottles);
@@ -156,6 +174,9 @@ class World {
 
   increaseCoins(collectable, increase) {
     if (this.character.isColliding(collectable)) {
+      // if (collectable.constructor.name.startsWith("Coin")) {
+      collectable.coin_sound.play();
+      // }
       increase = parseInt(increase);
       this.character.coins += increase;
       this.statusBarCoins.setPercentage(this.character.coins);
@@ -168,7 +189,7 @@ class World {
 
   reduceEnergy(enemy, damage) {
     if (!this.character.isColliding(enemy)) {
-      enemy.isCollidingWithCharacter = false;
+      // enemy.isCollidingWithCharacter = false;
     }
     if (this.character.isColliding(enemy) && !this.character.isAboveGround()) {
       this.character.hit(damage);
@@ -190,6 +211,7 @@ class World {
     if (this.character.isColliding(enemy) && enemy.constructor.name.startsWith("Endboss")) {
       this.character.isCollidingWithEndboss = true;
       enemy.isCollidingWithCharacter = true;
+      this.character.hit(damage);
       this.character.firstMomentOfCollision = new Date().getTime();
     }
     // functions to make endboss follow
@@ -219,6 +241,7 @@ class World {
   // killchickenWithBottle() {} Todo killChicken auslagern
 
   enemyDies(enemy) {
+    enemy.dying_audio.play();
     enemy.energy = 0;
     enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
   }
@@ -301,7 +324,7 @@ class World {
 
     mo.draw(this.ctx);
     // mo.drawBlueFrame(this.ctx);
-    mo.drawRedFrame(this.ctx);
+    // mo.drawRedFrame(this.ctx);
 
     if (mo.otherDirection) {
       this.flipImageBack(mo);

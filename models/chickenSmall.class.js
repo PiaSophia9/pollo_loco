@@ -11,11 +11,13 @@ class ChickenSmall extends MovableObject {
     right: 0,
   };
 
-  small_chicken_sound = new Audio("./audio/small_chicken_sound.mp3");
+  // small_chicken_sound = new Audio("./audio/small_chicken_sound.mp3");
 
   IMAGES_WALKING = ["./img/3_enemies_chicken/chicken_small/1_walk/1_w.png", "./img/3_enemies_chicken/chicken_small/1_walk/2_w.png", "./img/3_enemies_chicken/chicken_small/1_walk/3_w.png"];
 
   IMAGE_DYING = ["./img/3_enemies_chicken/chicken_small/2_dead/dead.png"];
+
+  dying_audio = new Audio("./audio/jump_on_chicken.mp3");
 
   constructor(x) {
     super().loadImage("./img/3_enemies_chicken/chicken_small/1_walk/1_w.png");
@@ -25,6 +27,7 @@ class ChickenSmall extends MovableObject {
     this.loadImages(this.IMAGE_DYING);
     this.speed = 0.15 + Math.random() * 0.5;
     this.animate();
+    this.dying_audio.volume = 0.3;
   }
 
   animate() {

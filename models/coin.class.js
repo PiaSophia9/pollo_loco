@@ -8,11 +8,13 @@ class Coin extends CollectableObject {
     left: 20,
     right: 20,
   };
+  coin_sound = new Audio("./audio/coin.mp3");
 
   constructor(x, y) {
     super();
     this.y = y;
     this.x = x;
     this.loadImage(this.IMAGE);
+    this.coin_sound.volume = 0.1;
   }
 }

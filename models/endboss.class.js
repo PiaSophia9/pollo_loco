@@ -9,6 +9,7 @@ class Endboss extends MovableObject {
   isCollidingWithCharacter = false;
   characterIsClose = false;
   lastApproach;
+  firstMomentOfCollision;
   offset = {
     top: 0,
     bottom: 30,
@@ -44,6 +45,8 @@ class Endboss extends MovableObject {
 
   IMAGES_WALK = ["./img/4_enemie_boss_chicken/1_walk/G1.png", "./img/4_enemie_boss_chicken/1_walk/G2.png", "./img/4_enemie_boss_chicken/1_walk/G3.png", "./img/4_enemie_boss_chicken/1_walk/G4.png"];
 
+  hurt_sound = new Audio("./audio/endboss.mp3");
+
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
@@ -52,6 +55,7 @@ class Endboss extends MovableObject {
     this.loadImages(this.IMAGES_ATTACK);
     this.loadImages(this.IMAGES_WALK);
     this.animate();
+    this.hurt_sound.volume = 0.5;
   }
 
   animate() {
@@ -59,16 +63,28 @@ class Endboss extends MovableObject {
       if (this.isCollidingWithCharacter == false) {
         if (this.energy < 1) {
           this.playAnimation(this.IMAGES_DEAD);
+          this.hurt_sound.play();
         } else if (this.isHurt()) {
           this.playAnimation(this.IMAGES_HURT);
+          this.hurt_sound.play();
           // } else if (this.wasApproached()) {
         } else if (this.characterIsClose) {
           this.playAnimation(this.IMAGES_WALK);
         }
-      } else if (this.isCollidingWithCharacter == true) {
-        this.playAnimation(this.IMAGES_ATTACK);
       }
+      // else if (this.isCollidingWithCharacter == true) {
+
+      // }
     }, 200);
+    setInterval(() => {
+      if (this.isCollidingWithCharacter == true) {
+        this.playAnimation(this.IMAGES_ATTACK);
+        this.hurt_sound.play();
+        setTimeout(() => {
+          this.isCollidingWithCharacter = false; // Nach einer Verzögerung von 500ms auf false setzen
+        }, 200);
+      }
+    }, 50);
     setInterval(() => {
       // if (this.characterIsClose)) {
       if (this.characterIsClose) {

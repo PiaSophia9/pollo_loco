@@ -17,6 +17,8 @@ class Chicken extends MovableObject {
 
   IMAGE_DYING = ["./img/3_enemies_chicken/chicken_normal/2_dead/dead.png"];
 
+  dying_audio = new Audio("./audio/jump_on_chicken.mp3");
+
   constructor(x) {
     super().loadImage("img/3_enemies_chicken/chicken_normal/1_walk/1_w.png");
     // this.y = 357 + Math.random() * 10;
@@ -26,6 +28,7 @@ class Chicken extends MovableObject {
     // this.loadImage(this.IMAGE_DYING);
     this.speed = 0.1 + Math.random() * 0.5;
     this.animate();
+    this.dying_audio.volume = 0.3;
   }
 
   animate() {

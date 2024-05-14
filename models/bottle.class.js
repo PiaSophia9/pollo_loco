@@ -18,11 +18,13 @@ class Bottle extends CollectableObject {
     left: 13,
     right: 13,
   };
+  bottle_sound = new Audio("./audio/bottle.mp3");
 
   constructor(x, y) {
     super();
     this.y = y;
     this.x = x;
     this.loadImage(this.IMAGE);
+    this.bottle_sound.volume = 0.2;
   }
 }
