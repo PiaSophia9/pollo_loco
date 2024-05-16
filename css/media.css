@@ -1,0 +1,138 @@
+@media only screen and (max-width: 720px) {
+  .imprint p {
+    margin: 0;
+    font-size: 8px;
+  }
+
+  .imprint a {
+    font-size: 8px;
+  }
+
+  .imprint h3 {
+    font-size: 12px;
+  }
+
+  br {
+    display: none;
+  }
+
+  #fullScreenContainer {
+    width: 100%;
+    height: auto;
+  }
+
+  .relative {
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+
+  .start_screen {
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+  .screen_with_back_button {
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+
+  canvas {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .responsive_button_container {
+    display: flex;
+    width: 100%;
+  }
+
+  .upper_btns_container {
+    width: 100%;
+  }
+
+  h1 {
+    display: none;
+  }
+}
+
+@media only screen and (max-height: 480px) {
+  #fullScreenContainer {
+    height: 100vh;
+  }
+
+  .relative {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .start_screen {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .screen_with_back_button {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .responsive_button_container {
+    display: flex;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  canvas {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  h1 {
+    display: none;
+  }
+}
+
+@media screen and (orientation: portrait) and (min-height: 650px) and (max-width: 720px) {
+  .rotate_screen {
+    position: absolute;
+    top: 0;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    background-image: url("../img/5_background/body_background_11.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  .white_info_container_rotateScreen {
+    background-color: white;
+    opacity: 0.8;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    padding: 24px;
+    position: absolute;
+  }
+
+  .rotate_img {
+    width: 20%;
+    height: 20%;
+  }
+
+  .rotate_text {
+    margin-block-start: 0;
+    font-size: xx-large;
+  }
+}

@@ -11,6 +11,12 @@ function init() {
   canvas = document.getElementById("canvas");
 }
 
+/**
+ * Initializes touch events for controlling the game's keyboard input.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function initThouchEvents() {
   document.getElementById("leftBtn").addEventListener("touchstart", () => {
     event.preventDefault();
@@ -99,15 +105,13 @@ window.addEventListener("keydown", (event) => {
 
 function startScreenToPlayScreen() {
   initLevel();
-  //if (this.mute == false) {
+  initThouchEvents();
   background_music.play();
   chicken_sound.play();
-  //}
   document.getElementById("startStreen").classList.add("d_none");
   document.getElementById("canvas").classList.remove("d_none");
   document.getElementById("responsiveButtonContainer").classList.remove("d_none");
   document.getElementById("canvasButtonContainer").classList.remove("d_none");
-  initThouchEvents();
 }
 
 function looseScreenToStartScreen() {

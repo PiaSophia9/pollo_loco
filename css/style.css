@@ -1,30 +1,31 @@
 @font-face {
   font-family: "zabars";
-  src: url("fonts/zabars.ttf") format("truetype");
+  src: url("../fonts/zabars.ttf") format("truetype");
   font-weight: 200;
 }
 
 body {
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   justify-content: center;
   min-height: 100vh;
   font-family: "zabars", Arial, Helvetica, sans-serif;
   margin: 0;
-  background-image: url("./img/5_background/body_background_11.png");
+  background-image: url("../img/5_background/body_background_11.png");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center bottom;
-  /* background-image: url("./img/5_background/layers/air.png"); */
+}
+
+canvas {
+  background-color: black;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: block;
 }
 
 h1 {
-  /* font-size: 56px; */
-  /* text-shadow: 2px 2px rgba(255, 255, 255, 0.4); */
-  /* text-shadow: 2px 2px rgba(0, 0, 0, 0.4); */
   letter-spacing: 2px;
-  /* color: #2e1109; */
   margin-block-start: 0;
   font-weight: bold;
 }
@@ -38,18 +39,12 @@ h3 {
   margin-top: 100px;
 }
 
-canvas {
-  background-color: black;
-  /* border: 3px solid #ea8d43; */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  /* box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19); */
-  display: block;
-  /* justify-content: space-between; */
-}
-
 .relative {
   position: relative;
+}
+
+.img_mute {
+  margin-left: 4px;
 }
 
 .canvas_button_container {
@@ -61,10 +56,6 @@ canvas {
   top: 0;
 }
 
-.img_mute {
-  margin-left: 4px;
-}
-
 .img_home {
   width: 32px;
   height: auto;
@@ -74,9 +65,6 @@ canvas {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* background-image: url("./img/9_intro_outro_screens/start/startscreen_2.png");
-  background-size: 720px 480px;
-  background-repeat: no-repeat; */
   z-index: 1;
   width: 720px;
   height: 480px;
@@ -93,11 +81,7 @@ canvas {
 .screen_with_back_button {
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  /* background-image: url("./img/5_background/first_half_background.png");
-  background-size: 720px 480px;
-  background-repeat: no-repeat; */
   z-index: 1;
   width: 720px;
   height: 480px;
@@ -171,7 +155,6 @@ canvas {
   width: 100%;
   height: 100%;
   position: absolute;
-  /* top: 20%; */
 }
 
 .start_screen button:hover,
@@ -179,8 +162,7 @@ canvas {
 .responsive_buttons_left button:hover,
 .responsive_buttons_right button:hover,
 .canvas_button_container button:hover {
-  transform: scale(1.1); /* Beim Hovern um 10% vergrößern */
-  /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); */
+  transform: scale(1.1);
 }
 
 img {
@@ -289,11 +271,6 @@ img {
   display: flex;
 }
 
-/* .full_screen {
-  width: 100vw !important;
-  height: 100vh !important;
-} */
-
 .d_flex {
   display: flex;
 }
@@ -301,7 +278,7 @@ img {
 .d_none {
   display: none;
 }
-
+/* 
 @media only screen and (max-width: 720px) {
   .imprint p {
     margin: 0;
@@ -359,23 +336,6 @@ img {
   h1 {
     display: none;
   }
-
-  /* .start_screen button,
-  .screen_with_back_button button,
-  .responsive_buttons_left button,
-  .responsive_buttons_right button,
-  .canvas_button_container button {
-    width: 24px;
-    height: 24px;
-  }
-
-  .start_screen button:hover,
-  .screen_with_back_button button:hover,
-  .responsive_buttons_left button:hover,
-  .responsive_buttons_right button:hover,
-  .canvas_button_container button:hover {
-    transform: scale(0);
-  } */
 }
 
 @media only screen and (max-height: 480px) {
@@ -412,23 +372,6 @@ img {
   h1 {
     display: none;
   }
-
-  /* .start_screen button,
-  .screen_with_back_button button,
-  .responsive_buttons_left button,
-  .responsive_buttons_right button,
-  .canvas_button_container button {
-    width: 32px;
-    height: 32px;
-  }
-
-  .start_screen button:hover,
-  .screen_with_back_button button:hover,
-  .responsive_buttons_left button:hover,
-  .responsive_buttons_right button:hover,
-  .canvas_button_container button:hover {
-    transform: scale(0);
-  } */
 }
 
 @media screen and (orientation: portrait) and (min-height: 650px) and (max-width: 720px) {
@@ -438,7 +381,7 @@ img {
     z-index: 100;
     width: 100%;
     height: 100%;
-    background-image: url("./img/5_background/body_background_11.png");
+    background-image: url("../img/5_background/body_background_11.png");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
@@ -462,8 +405,6 @@ img {
     border-radius: 10px;
     padding: 24px;
     position: absolute;
-    /* top: 10%; */
-    /* z-index: 101; */
   }
 
   .rotate_img {
@@ -475,4 +416,4 @@ img {
     margin-block-start: 0;
     font-size: xx-large;
   }
-}
+} */
