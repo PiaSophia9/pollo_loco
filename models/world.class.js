@@ -240,7 +240,7 @@ class World {
       this.enemyDies(enemy);
       this.deadEnemyDisapears(enemy, chickenType);
     } else if (this.character.isColliding(enemy) && !enemy.energy == 0) {
-      this.reduceEnergy(enemy, "10");
+      this.reduceEnergy(enemy, "20");
     }
     this.throwableObjects.forEach((throwableObject) => {
       if (throwableObject.isColliding(enemy)) {

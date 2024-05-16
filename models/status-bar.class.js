@@ -5,13 +5,24 @@ class StatusBar extends DrawableObject {
   height = 50;
   x = 10;
 
+  /**
+   * Sets the percentage value of the status bar, updates the image path based on the percentage, and caches the image.
+   *
+   * @param {number} percentage - The new percentage value for the status bar.
+   * @return {undefined} No return value.
+   */
   setPercentage(percentage) {
-    this.percentage = percentage; // Zahl zwischne 0 und 5
+    this.percentage = percentage;
     let path = this.IMAGES[this.resolveImageIndex()];
-    // In die eckigen Klammern wird eine Zahl von 0 - 5 eingesetzt, die in resolveImageIndex erstelt wird.
     this.img = this.imageCache[path];
   }
 
+  /**
+   * A description of the entire function.
+   *
+   * @param {type} paramName - description of parameter
+   * @return {type} description of return value
+   */
   resolveImageIndex() {
     if (this.percentage >= 100) {
       return 5;

@@ -11,6 +11,12 @@ class StatusBarEndboss extends StatusBar {
     "./img/7_statusbars/2_statusbar_endboss/orange/orange100.png",
   ];
 
+  /**
+   * Constructor for initializing the StatusBarEndboss object.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);

@@ -10,6 +10,12 @@ class StatusBarHealth extends StatusBar {
     "./img/7_statusbars/1_statusbar/2_statusbar_health/blue/100.png",
   ];
 
+  /**
+   * Constructor for initializing the StatusBarHealth object.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
   constructor() {
     super();
     this.loadImages(this.IMAGES);

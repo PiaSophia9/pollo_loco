@@ -41,6 +41,12 @@ class Endboss extends MovableObject {
   IMAGES_WALK = ["./img/4_enemie_boss_chicken/1_walk/G1.png", "./img/4_enemie_boss_chicken/1_walk/G2.png", "./img/4_enemie_boss_chicken/1_walk/G3.png", "./img/4_enemie_boss_chicken/1_walk/G4.png"];
   hurt_sound = new Audio("./audio/endboss.mp3");
 
+  /**
+   * Constructor for initializing the Endboss object.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
   constructor() {
     super().loadImage(this.IMAGES_ALERT[0]);
     this.loadImages(this.IMAGES_ALERT);
@@ -52,45 +58,86 @@ class Endboss extends MovableObject {
     this.hurt_sound.volume = 0.5;
   }
 
+  /**
+   * Animates the endboss based on various conditions such as energy levels, collisions, and proximity to the character.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
   animate() {
     setInterval(() => {
       if (this.isCollidingWithCharacter == false) {
         if (this.energy < 1) {
-          this.playAnimation(this.IMAGES_DEAD);
-          if (this.muteAudio == false) {
-            this.hurt_sound.play();
-          }
+          this.endbossDies();
         } else if (this.isHurt()) {
-          this.playAnimation(this.IMAGES_HURT);
-          if (this.muteAudio == false) {
-            this.hurt_sound.play();
-          }
+          this.endbossHurtAnimation();
         } else if (this.characterIsClose) {
           this.playAnimation(this.IMAGES_WALK);
         }
       }
     }, 1000 / 5);
+    this.endbossAttacks();
+    this.endbossMoves();
+  }
+
+  /**
+   * Executes the endboss attack sequence at a predefined interval,
+   * triggering animations and sounds when colliding with the character.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
+  endbossAttacks() {
     setInterval(() => {
-      this.endbossAttacks();
+      if (this.isCollidingWithCharacter == true) {
+        this.playAnimation(this.IMAGES_ATTACK);
+        if (this.muteAudio == false) {
+          this.hurt_sound.play();
+        }
+        setTimeout(() => {
+          this.isCollidingWithCharacter = false;
+        }, 200);
+      }
     }, 1000 / 20);
+  }
+
+  /**
+   * Moves the endboss based on the character's proximity.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
+  endbossMoves() {
     setInterval(() => {
-      this.endbossMoves();
+      if (this.characterIsClose) {
+        this.moveLeft();
+      }
     }, 1000 / 60);
   }
-  endbossAttacks() {
-    if (this.isCollidingWithCharacter == true) {
-      this.playAnimation(this.IMAGES_ATTACK);
-      if (this.muteAudio == false) {
-        this.hurt_sound.play();
-      }
-      setTimeout(() => {
-        this.isCollidingWithCharacter = false;
-      }, 200);
+
+  /**
+   * A description of the entire function.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
+  endbossDies() {
+    this.playAnimation(this.IMAGES_DEAD);
+    if (this.muteAudio == false) {
+      this.hurt_sound.play();
     }
   }
-  endbossMoves() {
-    if (this.characterIsClose) {
-      this.moveLeft();
+
+  /**
+   * Executes the endboss hurt animation by playing the hurt images and sound if audio is not muted.
+   *
+   * @param {} No parameters.
+   * @return {} No return value.
+   */
+  endbossHurtAnimation() {
+    this.playAnimation(this.IMAGES_HURT);
+    if (this.muteAudio == false) {
+      this.hurt_sound.play();
     }
   }
 }

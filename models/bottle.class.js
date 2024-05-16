@@ -20,6 +20,6 @@ class Bottle extends CollectableObject {
     this.y = y;
     this.x = x;
     this.loadImage(this.IMAGE);
-    this.bottle_sound.volume = 0.2;
+    this.bottle_sound.volume = 0.1;
   }
 }

@@ -206,7 +206,7 @@ class Character extends MovableObject {
       this.firstMomentOfNoAction = new Date().getTime();
     }
     if (this.isCollidingWithEndboss && this.characterWasCollidingEndboss()) {
-      this.jumpLeft();
+      this.bounceBack();
     }
   }
 

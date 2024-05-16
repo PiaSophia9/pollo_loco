@@ -6,6 +6,16 @@ class Level {
   backgroundobjects;
   level_end_x = 2200;
 
+  /**
+   * Constructor for initializing the Level object.
+   *
+   * @param {type} bigChicken - description of the bigChicken parameter
+   * @param {type} smallChicken - description of the smallChicken parameter
+   * @param {type} endboss - description of the endboss parameter
+   * @param {type} clouds - description of the clouds parameter
+   * @param {type} backgroundobjects - description of the backgroundobjects parameter
+   * @return {type} No return value.
+   */
   constructor(bigChicken, smallChicken, endboss, clouds, backgroundobjects) {
     this.bigChicken = bigChicken;
     this.smallChicken = smallChicken;
@@ -13,21 +23,4 @@ class Level {
     this.clouds = clouds;
     this.backgroundobjects = backgroundobjects;
   }
-
-  //runLevel() {
-  //  setInterval(() => {
-  //    this.showLooseScreen();
-  //  }, 50);
-  //}
-  //
-  // gameOverScreenShown = false;
-  //
-  // showLooseScreen() {
-  //   if (this.world.character.energy <= 0 && !this.//gameOverScreenShown) {
-  //     setTimeout(() => {
-  //       console.log("show Game Over screen");
-  //      this.gameOverScreenShown = true;
-  //     }, 500);
-  //  }
-  // }
 }
