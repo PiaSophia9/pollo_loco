@@ -4,4 +4,5 @@ class CollectableObject extends DrawableObject {
   x = 0;
   y = 0;
   otherDirection = false;
+  muteAudio = false;
 }

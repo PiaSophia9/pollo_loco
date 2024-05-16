@@ -5,6 +5,7 @@ class ThrowableObject extends MovableObject {
     left: 13,
     right: 13,
   };
+  muteAudio = false;
   throw_sound = new Audio("./audio/shoot.mp3");
 
   constructor(x, y, characterDirection) {
@@ -15,7 +16,9 @@ class ThrowableObject extends MovableObject {
   }
 
   throw(x, y, characterDirection) {
-    this.throw_sound.play();
+    if (muteAudio == false) {
+      this.throw_sound.play();
+    }
     x = x;
     y = y;
     this.height = 60;

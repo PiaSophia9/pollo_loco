@@ -24,6 +24,7 @@ h1 {
   text-shadow: 2px 2px rgba(0, 0, 0, 0.4);
   letter-spacing: 3px;
   color: #2e1109;
+  margin-block-start: 0;
 }
 
 h3 {
@@ -41,8 +42,30 @@ canvas {
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   /* box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.2), 0 6px 20px 0 rgba(255, 255, 255, 0.19); */
+  display: block;
+  /* justify-content: space-between; */
+}
+
+.relative {
+  position: relative;
+}
+
+.canvas_button_container {
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+}
+
+.img_mute {
+  margin-left: 4px;
+}
+
+.img_home {
+  width: 32px;
+  height: auto;
 }
 
 .start_screen {
@@ -80,7 +103,9 @@ canvas {
 
 .start_screen button,
 .screen_with_back_button button,
-canvas button {
+.responsive_buttons_left button,
+.responsive_buttons_right button,
+.canvas_button_container button {
   width: 45px;
   height: 45px;
   display: flex;
@@ -106,7 +131,10 @@ canvas button {
 }
 
 .start_screen button:hover,
-canvas button:hover {
+.screen_with_back_button button:hover,
+.responsive_buttons_left button:hover,
+.responsive_buttons_right button:hover,
+.canvas_button_container button:hover {
   transform: scale(1.1); /* Beim Hovern um 10% vergrößern */
   /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); */
 }
@@ -151,6 +179,20 @@ img {
   max-width: 70%;
 }
 
+.white_info_container_canvas {
+  background-color: white;
+  opacity: 0.8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  padding: 24px;
+  width: 30%;
+  position: absolute;
+  top: 200%;
+}
+
 .key_container {
   display: flex;
   justify-content: space-between;
@@ -158,14 +200,16 @@ img {
   width: 100%;
 }
 
-.white_info_container p {
+.white_info_container p,
+.white_info_container_canvas p {
   font-size: 32px;
   margin-block-start: 0;
   margin-block-end: 0;
   margin: 4px;
 }
 
-.white_info_container img {
+.white_info_container img,
+.white_info_container_canvas img {
   width: 32px;
   height: 32px;
 }
@@ -192,6 +236,24 @@ img {
   z-index: 99;
 }
 
+.responsive_button_container {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  display: none;
+  justify-content: space-between;
+}
+
+.responsive_buttons_left,
+.responsive_buttons_right {
+  display: flex;
+}
+
+/* .full_screen {
+  width: 100vw !important;
+  height: 100vh !important;
+} */
+
 .d_flex {
   display: flex;
 }
@@ -201,6 +263,20 @@ img {
 }
 
 @media only screen and (max-width: 720px) {
+  .relative {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .start_screen {
+    width: 100%;
+    border-radius: 0;
+  }
+  .screen_with_back_button {
+    width: 100%;
+    border-radius: 0;
+  }
+
   canvas {
     width: 100%;
     border-radius: 0;
@@ -211,17 +287,75 @@ img {
   .startScreen {
     border-radius: 0;
   }
+
+  .responsive_button_container {
+    display: flex;
+  }
+
+  /* .start_screen button,
+  .screen_with_back_button button,
+  .responsive_buttons_left button,
+  .responsive_buttons_right button,
+  .canvas_button_container button {
+    width: 24px;
+    height: 24px;
+  }
+
+  .start_screen button:hover,
+  .screen_with_back_button button:hover,
+  .responsive_buttons_left button:hover,
+  .responsive_buttons_right button:hover,
+  .canvas_button_container button:hover {
+    transform: scale(0);
+  } */
 }
 
 @media only screen and (max-height: 480px) {
+  .relative {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .start_screen {
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  .screen_with_back_button {
+    height: 100vh;
+    border-radius: 0;
+  }
+
   canvas {
     height: 100vh;
     border-radius: 0;
   }
+
   h1 {
     display: none;
   }
   .startScreen {
     border-radius: 0;
   }
+
+  .responsive_button_container {
+    display: flex;
+  }
+
+  /* .start_screen button,
+  .screen_with_back_button button,
+  .responsive_buttons_left button,
+  .responsive_buttons_right button,
+  .canvas_button_container button {
+    width: 32px;
+    height: 32px;
+  }
+
+  .start_screen button:hover,
+  .screen_with_back_button button:hover,
+  .responsive_buttons_left button:hover,
+  .responsive_buttons_right button:hover,
+  .canvas_button_container button:hover {
+    transform: scale(0);
+  } */
 }

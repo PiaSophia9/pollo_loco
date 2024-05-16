@@ -10,6 +10,7 @@ class World {
   keyboard;
   camera_x = 0;
   characterJumpedOnChicken = false;
+  muteAudio = false;
   throwableObjects = [];
   collectableBottles = [new Bottle(140, 200), new Bottle(490, 250), new Bottle(932, 166), new Bottle(1256, 235), new Bottle(1578, 197), new Bottle(1928, 250), new Bottle(2308, 180)]; // Todo: rename "bottles"
   collectableCoins = [
@@ -72,6 +73,7 @@ class World {
       setTimeout(() => {
         console.log("show Game Over screen");
         document.getElementById("canvas").classList.add("d_none");
+        document.getElementById("responsiveButtonContainer").classList.add("d_none");
         document.getElementById("looseScreen").classList.remove("d_none");
         this.gameOverScreenShown = true;
         clearAllIntervals();
@@ -85,6 +87,7 @@ class World {
     if (this.level.endboss[0].energy <= 0 && !this.winScreenShown) {
       setTimeout(() => {
         document.getElementById("canvas").classList.add("d_none");
+        document.getElementById("responsiveButtonContainer").classList.add("d_none");
         document.getElementById("winScreen").classList.remove("d_none");
         this.winScreenShown = true;
         clearAllIntervals();
@@ -161,7 +164,9 @@ class World {
     if (this.character.isColliding(collectable)) {
       increase = parseInt(increase);
       if (this.character.bottles < 100) {
-        collectable.bottle_sound.play();
+        if (this.muteAudio == false) {
+          collectable.bottle_sound.play();
+        }
         this.character.bottles += increase;
       }
       this.statusBarBottles.setPercentage(this.character.bottles);
@@ -175,7 +180,9 @@ class World {
   increaseCoins(collectable, increase) {
     if (this.character.isColliding(collectable)) {
       // if (collectable.constructor.name.startsWith("Coin")) {
-      collectable.coin_sound.play();
+      if (this.muteAudio == false) {
+        collectable.coin_sound.play();
+      }
       // }
       increase = parseInt(increase);
       this.character.coins += increase;
@@ -241,7 +248,9 @@ class World {
   // killchickenWithBottle() {} Todo killChicken auslagern
 
   enemyDies(enemy) {
-    enemy.dying_audio.play();
+    if (this.muteAudio == false) {
+      enemy.dying_audio.play();
+    }
     enemy.energy = 0;
     enemy.showImage(enemy.IMAGE_DYING); // Todo: showImage, statt playanimation
   }

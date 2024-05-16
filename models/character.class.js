@@ -8,6 +8,7 @@ class Character extends MovableObject {
   firstMomentOfNoAction;
   isCollidingWithEndboss = false;
   firstMomentOfCollision;
+  muteAudio = false;
   bottles = 0;
   coins = 0;
   energy = 100;
@@ -90,8 +91,8 @@ class Character extends MovableObject {
     this.firstMomentOfNoAction = new Date().getTime();
     this.walking_sound.volume = 1;
     this.jump_sound.volume = 1;
-    this.hurt_sound.volume = 0.3;
-    this.sleep_sound.volume = 0.3;
+    this.hurt_sound.volume = 1;
+    this.sleep_sound.volume = 1;
   }
 
   animate() {
@@ -100,18 +101,24 @@ class Character extends MovableObject {
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
         this.moveRight();
         this.otherDirection = false;
-        this.walking_sound.play();
+        if (muteAudio == false) {
+          this.walking_sound.play();
+        }
       }
 
       if (this.world.keyboard.LEFT && this.x > 0) {
         this.moveLeft();
         this.otherDirection = true;
-        this.walking_sound.play();
+        if (muteAudio == false) {
+          this.walking_sound.play();
+        }
       }
 
-      if (this.world.keyboard.SPACE && !this.isAboveGround()) {
+      if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
         this.jump();
-        this.jump_sound.play();
+        if (muteAudio == false) {
+          this.jump_sound.play();
+        }
       }
 
       this.world.camera_x = -this.x + 60;
@@ -124,13 +131,17 @@ class Character extends MovableObject {
         this.playAnimation(this.IMAGES_IDLE);
       } else if ((new Date().getTime() - this.firstMomentOfNoAction) / 1000 > 5) {
         this.playAnimation(this.IMAGES_LONG_IDLE);
-        this.sleep_sound.play();
+        if (muteAudio == false) {
+          this.sleep_sound.play();
+        }
       }
       if (this.energy <= 0) {
         this.playAnimation(this.IMAGES_DYING);
       }
       if (this.isHurt() && this.energy > 0) {
-        this.hurt_sound.play();
+        if (muteAudio == false) {
+          this.hurt_sound.play();
+        }
         this.playAnimation(this.IMAGES_HURT);
         this.firstMomentOfNoAction = new Date().getTime();
       } else if (this.isAboveGround()) {

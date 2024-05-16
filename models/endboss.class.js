@@ -10,6 +10,7 @@ class Endboss extends MovableObject {
   characterIsClose = false;
   lastApproach;
   firstMomentOfCollision;
+  muteAudio = false;
   offset = {
     top: 0,
     bottom: 30,
@@ -63,10 +64,14 @@ class Endboss extends MovableObject {
       if (this.isCollidingWithCharacter == false) {
         if (this.energy < 1) {
           this.playAnimation(this.IMAGES_DEAD);
-          this.hurt_sound.play();
+          if (this.muteAudio == false) {
+            this.hurt_sound.play();
+          }
         } else if (this.isHurt()) {
           this.playAnimation(this.IMAGES_HURT);
-          this.hurt_sound.play();
+          if (this.muteAudio == false) {
+            this.hurt_sound.play();
+          }
           // } else if (this.wasApproached()) {
         } else if (this.characterIsClose) {
           this.playAnimation(this.IMAGES_WALK);
@@ -79,7 +84,9 @@ class Endboss extends MovableObject {
     setInterval(() => {
       if (this.isCollidingWithCharacter == true) {
         this.playAnimation(this.IMAGES_ATTACK);
-        this.hurt_sound.play();
+        if (this.muteAudio == false) {
+          this.hurt_sound.play();
+        }
         setTimeout(() => {
           this.isCollidingWithCharacter = false; // Nach einer Verzögerung von 500ms auf false setzen
         }, 200);
