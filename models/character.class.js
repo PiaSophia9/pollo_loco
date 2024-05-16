@@ -18,7 +18,6 @@ class Character extends MovableObject {
     left: 20,
     right: 30,
   };
-
   IMAGES_IDLE = [
     "./img/2_character_pepe/1_idle/idle/I-1.png",
     "./img/2_character_pepe/1_idle/idle/I-2.png",
@@ -72,12 +71,17 @@ class Character extends MovableObject {
     "./img/2_character_pepe/5_dead/D-57.png",
   ];
   IMAGES_HURT = ["./img/2_character_pepe/4_hurt/H-41.png", "./img/2_character_pepe/4_hurt/H-42.png", "./img/2_character_pepe/4_hurt/H-43.png"];
-  world;
   walking_sound = new Audio("./audio/walk.mp3");
   jump_sound = new Audio("./audio/jump.mp3");
   hurt_sound = new Audio("./audio/hurt.mp3");
   sleep_sound = new Audio("./audio/sleep.mp3");
 
+  /**
+   * Constructor for the Character class.
+   *
+   * @param {}
+   * @return {}
+   */
   constructor() {
     super().loadImage("./img/2_character_pepe/1_idle/idle/I-1.png");
     this.loadImages(this.IMAGES_IDLE);
@@ -95,70 +99,128 @@ class Character extends MovableObject {
     this.sleep_sound.volume = 1;
   }
 
+  /**
+   * A function that triggers character movements and character animation.
+   *
+   */
   animate() {
+    this.characterMovements();
+    this.characterAnimation();
+  }
+
+  /**
+   * Triggers character movements based on keyboard input and updates the camera position.
+   *
+   */
+  characterMovements() {
     setInterval(() => {
       this.walking_sound.pause();
       if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.otherDirection = false;
-        if (muteAudio == false) {
-          this.walking_sound.play();
-        }
+        this.characterMovesRight("right");
       }
-
       if (this.world.keyboard.LEFT && this.x > 0) {
-        this.moveLeft();
-        this.otherDirection = true;
-        if (muteAudio == false) {
-          this.walking_sound.play();
-        }
+        this.characterMovesLeft();
       }
-
       if ((this.world.keyboard.SPACE || this.world.keyboard.UP) && !this.isAboveGround()) {
-        this.jump();
-        if (muteAudio == false) {
-          this.jump_sound.play();
-        }
+        this.characterJumps();
       }
-
       this.world.camera_x = -this.x + 60;
     }, 1000 / 60);
+  }
 
-    // let animationPlayed = false; // nicht aus dem Video!
+  /**
+   * Moves the character to the right, sets otherDirection to false, and plays walking sound if audio is not muted.
+   */
+  characterMovesRight() {
+    this.moveRight();
+    this.otherDirection = false;
+    if (muteAudio == false) {
+      this.walking_sound.play();
+    }
+  }
 
+  /**
+   * Moves the character to the left, sets otherDirection to true, and plays walking sound if audio is not muted.
+   *
+   */
+  characterMovesLeft() {
+    this.moveLeft();
+    this.otherDirection = true;
+    if (muteAudio == false) {
+      this.walking_sound.play();
+    }
+  }
+
+  /**
+   * Jumps the character and plays the jump sound if audio is not muted.
+   *
+   */
+  characterJumps() {
+    this.jump();
+    if (muteAudio == false) {
+      this.jump_sound.play();
+    }
+  }
+
+  /**
+   * Sets up an interval for character animations, including idle, combat, and movement.
+   *
+   */
+  characterAnimation() {
     setInterval(() => {
-      if ((new Date().getTime() - this.firstMomentOfNoAction) / 1000 < 5) {
-        this.playAnimation(this.IMAGES_IDLE);
-      } else if ((new Date().getTime() - this.firstMomentOfNoAction) / 1000 > 5) {
-        this.playAnimation(this.IMAGES_LONG_IDLE);
-        if (muteAudio == false) {
-          this.sleep_sound.play();
-        }
-      }
-      if (this.energy <= 0) {
-        this.playAnimation(this.IMAGES_DYING);
-      }
-      if (this.isHurt() && this.energy > 0) {
-        if (muteAudio == false) {
-          this.hurt_sound.play();
-        }
-        this.playAnimation(this.IMAGES_HURT);
-        this.firstMomentOfNoAction = new Date().getTime();
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-        this.firstMomentOfNoAction = new Date().getTime();
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
-          this.firstMomentOfNoAction = new Date().getTime();
-        }
-      }
-      if (this.isCollidingWithEndboss && this.characterWasCollidingEndboss()) {
-        this.jumpLeft();
-      }
+      this.characterIdleAnimation();
+      this.characterCombatAnimation();
+      this.characterMoveAnimation();
     }, 1000 / 10);
-    // setInterval(() => {
+  }
 
-    // }, 20);
+  /**
+   * Animates the character based on the time since the last action.
+   *
+   * @return {void} - No return value
+   */
+  characterIdleAnimation() {
+    if (this.checkTimeSinceNoAction()) {
+      this.playAnimation(this.IMAGES_IDLE);
+    } else {
+      this.playAnimation(this.IMAGES_LONG_IDLE);
+      if (muteAudio == false) {
+        this.sleep_sound.play();
+      }
+    }
+  }
+
+  /**
+   * Handles the character combat animations based on energy levels and collisions.
+   *
+   * @return {void} - No return value
+   */
+  characterCombatAnimation() {
+    if (this.energy <= 0) {
+      this.playAnimation(this.IMAGES_DYING);
+    } else if (this.isHurt() && this.energy > 0) {
+      if (muteAudio == false) {
+        this.hurt_sound.play();
+      }
+      this.playAnimation(this.IMAGES_HURT);
+      this.firstMomentOfNoAction = new Date().getTime();
+    }
+    if (this.isCollidingWithEndboss && this.characterWasCollidingEndboss()) {
+      this.jumpLeft();
+    }
+  }
+
+  /**
+   * Handles the character movement animations based on the character's position and keyboard input.
+   *
+   */
+  characterMoveAnimation() {
+    if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_JUMPING);
+      this.firstMomentOfNoAction = new Date().getTime();
+    } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      this.playAnimation(this.IMAGES_WALKING);
+      this.firstMomentOfNoAction = new Date().getTime();
+    }
   }
 }

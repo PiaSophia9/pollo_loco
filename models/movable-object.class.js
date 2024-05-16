@@ -76,6 +76,12 @@ class MovableObject extends DrawableObject {
     return timepassed < 0.2;
   }
 
+  checkTimeSinceNoAction() {
+    let timepassed = new Date().getTime() - this.firstMomentOfNoAction; // difference in ms
+    timepassed = timepassed / 1000; // sec
+    return timepassed < 5;
+  }
+
   isDead() {
     return this.energy == 0;
   }

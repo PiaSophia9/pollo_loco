@@ -1,17 +1,5 @@
 class Bottle extends CollectableObject {
   IMAGE = "./img/6_salsa_bottle/salsa_bottle.png";
-  // x = 140;
-  // y = 200;
-  // x = 490;
-  // y = 250;
-  // x = 932;
-  // y = 166;
-  // x = 1256;
-  // y = 235;
-  // x = 1578;
-  // y = 197;
-  // x = 1928;
-  // y = 250;
   offset = {
     top: 3,
     bottom: 3,
@@ -20,6 +8,13 @@ class Bottle extends CollectableObject {
   };
   bottle_sound = new Audio("./audio/bottle.mp3");
 
+  /**
+   * Constructor for initializing the Bottle object.
+   *
+   * @param {number} x - The x-coordinate of the Bottle object.
+   * @param {number} y - The y-coordinate of the Bottle object.
+   * @return {void} No return value.
+   */
   constructor(x, y) {
     super();
     this.y = y;

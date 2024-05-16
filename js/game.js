@@ -7,6 +7,12 @@ background_music.volume = 0.1;
 chicken_sound.volume = 0.3;
 let muteAudio = false;
 
+/**
+ * A description of the entire function.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function init() {
   canvas = document.getElementById("canvas");
 }
@@ -103,6 +109,10 @@ window.addEventListener("keydown", (event) => {
   }
 });
 
+/**
+ * Transition from the start screen to the play screen by initializing level, touch events, playing background music and chicken sound, and updating the display elements accordingly.
+ *
+ */
 function startScreenToPlayScreen() {
   initLevel();
   initThouchEvents();
@@ -114,59 +124,85 @@ function startScreenToPlayScreen() {
   document.getElementById("canvasButtonContainer").classList.remove("d_none");
 }
 
+/**
+ * Transition from the loose screen to the start screen by hiding the loose screen, showing the start screen, and clearing all intervals.
+ *
+ */
 function looseScreenToStartScreen() {
   document.getElementById("looseScreen").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
 
+/**
+ * Transition from the win screen to the start screen by hiding the win screen, showing the start screen, and clearing all intervals.
+ *
+ */
 function winScreenToStartScreen() {
   document.getElementById("winScreen").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
 
-function clearAllIntervals() {
-  for (let i = 1; i < 9999; i++) window.clearInterval(i);
-}
-
+/**
+ * Function to show the user manual by hiding the start screen and displaying the user manual.
+ */
 function showUserManual() {
   document.getElementById("startStreen").classList.add("d_none");
   document.getElementById("userManual").classList.remove("d_none");
 }
 
+/**
+ * Transition from the user manual screen to the start screen by showing the start screen and hiding the user manual.
+ *
+ */
 function userManualToStartScreen() {
   document.getElementById("startStreen").classList.remove("d_none");
   document.getElementById("userManual").classList.add("d_none");
 }
 
+/**
+ * Hides the start screen and shows the imprint screen.
+ *
+ */
 function showImprint() {
   document.getElementById("startStreen").classList.add("d_none");
   document.getElementById("imprint").classList.remove("d_none");
 }
 
+/**
+ * Function to transition from the imprint screen to the start screen by showing the start screen and hiding the imprint screen.
+ *
+ */
 function imprintToStartScreen() {
   document.getElementById("startStreen").classList.remove("d_none");
   document.getElementById("imprint").classList.add("d_none");
 }
 
+/**
+ * Transition back to the start screen by hiding the current screen and showing the start screen.
+ *
+ */
 function backToStartScreen() {
-  // stop the game
   document.getElementById("startStreen").classList.remove("d_none");
   document.getElementById("canvas").classList.add("d_none");
 }
 
+/**
+ * A description of the entire function.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function showUserManuelContainer() {
   document.getElementById("userManualContainer").classList.remove("d_none");
   event.stopPropagation();
 }
 
-// function hideUserManuelContainer() {
-//   if (!document.getElementById("userManualContainer").hasAttribute("d_none")) {
-//     document.getElementById("userManualContainer").classList.add("d_none");
-//   }
-// }
-
+/**
+ * Hides the user manual container if it is not already hidden.
+ *
+ */
 function hideUserManuelContainer() {
   let userManualContainer = document.getElementById("userManualContainer");
   if (!userManualContainer.classList.contains("d_none")) {
@@ -174,6 +210,18 @@ function hideUserManuelContainer() {
   }
 }
 
+/**
+ * Clears all intervals by iterating through and clearing them.
+ *
+ */
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
+}
+
+/**
+ * Toggles the mute state based on the current value of muteAudio variable.
+ *
+ */
 function toggleMute() {
   if (muteAudio == true) {
     unmute();
@@ -182,18 +230,32 @@ function toggleMute() {
   }
 }
 
+/**
+ * A description of the entire function.
+ *
+ * @param {type} paramName - description of parameter
+ * @return {type} description of return value
+ */
 function mute() {
   document.getElementById("pauseSound").classList.remove("d_none");
   document.getElementById("playSound").classList.add("d_none");
   pauseAllAudio();
 }
 
+/**
+ * A description of the entire function.
+ *
+ */
 function unmute() {
   document.getElementById("pauseSound").classList.add("d_none");
   document.getElementById("playSound").classList.remove("d_none");
   playAllAudio();
 }
 
+/**
+ * A description of the entire function.
+ *
+ */
 function pauseAllAudio() {
   muteAudio = true;
   background_music.pause();
@@ -204,6 +266,10 @@ function pauseAllAudio() {
   world.muteAudio = true;
 }
 
+/**
+ * A description of the entire function.
+ *
+ */
 function playAllAudio() {
   muteAudio = false;
   background_music.play();
@@ -214,10 +280,10 @@ function playAllAudio() {
   world.mute = false;
 }
 
-// Audio.muted()
-
-// audioMuted = false;
-
+/**
+ * A description of the entire function.
+ *
+ */
 function fullscreen() {
   let fullscreenContainer = document.getElementById("fullScreenContainer");
   openFullscreen(fullscreenContainer);
@@ -234,6 +300,12 @@ function fullscreen() {
   openFullscreen(fullUserImprintScreen);
 }
 
+/**
+ * A description of the entire function.
+ *
+ * @param {type} elem - description of parameter
+ * @return {type} description of return value
+ */
 function openFullscreen(elem) {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
@@ -244,6 +316,10 @@ function openFullscreen(elem) {
   }
 }
 
+/**
+ * A description of the entire function.
+ *
+ */
 function closeFullscreen() {
   if (document.exitFullscreen) {
     document.exitFullscreen();
