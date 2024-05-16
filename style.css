@@ -263,6 +263,10 @@ img {
 }
 
 @media only screen and (max-width: 720px) {
+  #fullScreenContainer {
+    width: 100%;
+  }
+
   .relative {
     width: 100%;
     border-radius: 0;
@@ -281,15 +285,21 @@ img {
     width: 100%;
     border-radius: 0;
   }
+
+  .responsive_button_container {
+    display: flex;
+    width: 100%;
+  }
+
+  .upper_btns_container {
+    width: 100%;
+  }
+
   h1 {
     display: none;
   }
   .startScreen {
     border-radius: 0;
-  }
-
-  .responsive_button_container {
-    display: flex;
   }
 
   /* .start_screen button,
@@ -311,6 +321,10 @@ img {
 }
 
 @media only screen and (max-height: 480px) {
+  #fullScreenContainer {
+    height: 100vh;
+  }
+
   .relative {
     height: 100vh;
     border-radius: 0;
@@ -326,6 +340,12 @@ img {
     border-radius: 0;
   }
 
+  .responsive_button_container {
+    display: flex;
+    height: 100vh;
+    border-radius: 0;
+  }
+
   canvas {
     height: 100vh;
     border-radius: 0;
@@ -333,13 +353,6 @@ img {
 
   h1 {
     display: none;
-  }
-  .startScreen {
-    border-radius: 0;
-  }
-
-  .responsive_button_container {
-    display: flex;
   }
 
   /* .start_screen button,

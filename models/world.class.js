@@ -71,7 +71,9 @@ class World {
   showLooseScreen() {
     if (this.character.energy <= 0 && !this.gameOverScreenShown) {
       setTimeout(() => {
-        console.log("show Game Over screen");
+        mute();
+        document.getElementById("responsiveButtonContainer").classList.add("d_none");
+        document.getElementById("canvasButtonContainer").classList.add("d_none");
         document.getElementById("canvas").classList.add("d_none");
         document.getElementById("responsiveButtonContainer").classList.add("d_none");
         document.getElementById("looseScreen").classList.remove("d_none");
@@ -86,6 +88,9 @@ class World {
   showWinScreen() {
     if (this.level.endboss[0].energy <= 0 && !this.winScreenShown) {
       setTimeout(() => {
+        mute();
+        document.getElementById("responsiveButtonContainer").classList.add("d_none");
+        document.getElementById("canvasButtonContainer").classList.add("d_none");
         document.getElementById("canvas").classList.add("d_none");
         document.getElementById("responsiveButtonContainer").classList.add("d_none");
         document.getElementById("winScreen").classList.remove("d_none");
