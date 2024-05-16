@@ -10,6 +10,13 @@ class Coin extends CollectableObject {
   };
   coin_sound = new Audio("./audio/coin.mp3");
 
+  /**
+   * Constructor for initializing the Coin object.
+   *
+   * @param {number} x - The x-coordinate of the Coin object.
+   * @param {number} y - The y-coordinate of the Coin object.
+   * @return {void} No return value.
+   */
   constructor(x, y) {
     super();
     this.y = y;

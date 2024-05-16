@@ -15,8 +15,8 @@
     <script src="./models/movable-object.class.js"></script>
     <script src="./models/clouds.class.js"></script>
     <script src="./models/character.class.js"></script>
-    <script src="./models/chicken.class.js"></script>
     <script src="./models/chickenSmall.class.js"></script>
+    <script src="./models/chickenBig.class.js"></script>
     <script src="./models/endboss.class.js"></script>
     <script src="./models/world.class.js"></script>
     <script src="./models/background-object.class.js"></script>
@@ -37,7 +37,7 @@
         <img class="rotate_img" src="./img/icons/rotate.png" alt="" />
       </div>
     </div>
-    <div class="relative" onclick="hideUserManuelContainer()">
+    <div id="canvasContainer" class="relative d_none" onclick="hideUserManuelContainer()">
       <canvas class="d_none" id="canvas" width="720" height="480"> </canvas>
       <div id="canvasButtonContainer" class="canvas_button_container d_none">
         <button class="play_btn" onclick="toggleMute()" tabindex="-1">

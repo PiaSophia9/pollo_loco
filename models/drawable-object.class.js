@@ -7,15 +7,23 @@ class DrawableObject {
   imageCache = {};
   currentImage = 0;
 
+  /**
+   * Loads an image using the provided path.
+   *
+   * @param {string} path - The path of the image to load.
+   * @return {void} No return value.
+   */
   loadImage(path) {
-    // console.log("Loading image:", path);
-    this.img = new Image(); // " this.img = document.getElementById('image') <img id= 'image' src> " is the same.
-    // this.img.onload = () => {
-    //   console.log("Image loaded successfully:", path);
-    // };
+    this.img = new Image();
     this.img.src = path;
   }
 
+  /**
+   * Loads images into the imageCache based on the provided array of paths.
+   *
+   * @param {array} array - An array of paths to load images from.
+   * @return {void} No return value.
+   */
   loadImages(array) {
     array.forEach((path) => {
       let img = new Image();
@@ -24,36 +32,13 @@ class DrawableObject {
     });
   }
 
+  /**
+   * Draws an image on the canvas context.
+   *
+   * @param {CanvasRenderingContext2D} ctx - The canvas context to draw on.
+   * @return {void} No return value.
+   */
   draw(ctx) {
     ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
-  }
-
-  drawBlueFrame(ctx) {
-    if (
-      this instanceof Character ||
-      this instanceof Chicken ||
-      this instanceof ChickenSmall ||
-      this instanceof Endboss ||
-      this instanceof Bottle ||
-      this instanceof Coin ||
-      this instanceof ThrowableObject
-    ) {
-      ctx.beginPath();
-      ctx.lineWidth = "2";
-      ctx.strokeStyle = "blue";
-      ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.stroke();
-    }
-  }
-
-  drawRedFrame(ctx) {
-    if (this instanceof Character || this instanceof Chicken || this instanceof ChickenSmall || this instanceof Endboss || this instanceof Bottle || this instanceof Coin) {
-      ctx.beginPath();
-      ctx.lineWidth = "1";
-      ctx.strokeStyle = "red";
-      // ctx.rect(this.x, this.y, this.width, this.height);
-      ctx.rect(this.x + this.offset.left, this.y + this.offset.top, this.width - this.offset.left - this.offset.right, this.height - this.offset.top - this.offset.bottom);
-      ctx.stroke();
-    }
   }
 }
