@@ -37,44 +37,44 @@
         <img class="rotate_img" src="./img/icons/rotate.png" alt="" />
       </div>
     </div>
-    <!-- <div id="canvasContainer" class="relative d_none" onclick="hideUserManuelContainer()"> -->
-    <canvas class="d_none" id="canvas" width="720" height="480"> </canvas>
-    <div id="canvasButtonContainer" class="canvas_button_container d_none">
-      <button class="play_btn" onclick="toggleMute()" tabindex="-1">
-        <img id="playSound" class="img_mute" src="./img/icons/mute.png" alt="" />
-        <img id="pauseSound" class="img_mute d_none" src="./img/icons/audio.png" alt="" />
-      </button>
-      <button class="play_btn" id="joystick" onclick="showUserManuelContainer()"><img class="img_home" src="./img/icons/joystick.png" alt="" /></button>
-      <div id="userManualContainer" class="white_info_container_canvas d_none">
-        <div class="key_container">
-          <p>Left:</p>
-          <img src="./img/icons/left.png" alt="" />
+    <div id="canvasContainer" class="relative d_none">
+      <canvas class="d_none" id="canvas" width="720" height="480"> </canvas>
+      <div id="canvasButtonContainer" class="canvas_button_container d_none">
+        <button class="play_btn" onclick="toggleMute()" tabindex="-1">
+          <img id="playSound" class="img_mute" src="./img/icons/audio.png" alt="" />
+          <img id="pauseSound" class="img_mute d_none" src="./img/icons/mute.png" alt="" />
+        </button>
+        <button class="play_btn" id="joystick" onclick="toggleUserManual()"><img class="img_home" src="./img/icons/joystick.png" alt="" /></button>
+        <div id="userManualContainer" class="white_info_container_canvas d_none">
+          <div class="key_container">
+            <p>Left:</p>
+            <img src="./img/icons/left.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Right:</p>
+            <img src="./img/icons/right.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Jump:</p>
+            <img src="./img/icons/jump.png" alt="" />
+          </div>
+          <div class="key_container">
+            <p>Throw:</p>
+            <img src="./img/icons/letter-d.png" alt="" />
+          </div>
         </div>
-        <div class="key_container">
-          <p>Right:</p>
-          <img src="./img/icons/right.png" alt="" />
+      </div>
+      <div id="responsiveButtonContainer" class="responsive_button_container d_none">
+        <div class="responsive_buttons_left">
+          <button class="play_btn" id="leftBtn"><img src="./img/icons/backw.png" alt="" /></button>
+          <button class="play_btn" id="rightBtn"><img src="./img/icons/forw.png" alt="" /></button>
         </div>
-        <div class="key_container">
-          <p>Jump:</p>
-          <img src="./img/icons/jump.png" alt="" />
-        </div>
-        <div class="key_container">
-          <p>Throw:</p>
-          <img src="./img/icons/letter-d.png" alt="" />
+        <div class="responsive_buttons_right">
+          <button class="play_btn" id="jumpBtn"><img src="./img/icons/upw.png" alt="" /></button>
+          <button class="play_btn" id="throwBtn"><img src="./img/icons/throw.png" alt="" /></button>
         </div>
       </div>
     </div>
-    <div id="responsiveButtonContainer" class="responsive_button_container d_none">
-      <div class="responsive_buttons_left">
-        <button class="play_btn" id="leftBtn"><img src="./img/icons/backw.png" alt="" /></button>
-        <button class="play_btn" id="rightBtn"><img src="./img/icons/forw.png" alt="" /></button>
-      </div>
-      <div class="responsive_buttons_right">
-        <button class="play_btn" id="jumpBtn"><img src="./img/icons/upw.png" alt="" /></button>
-        <button class="play_btn" id="throwBtn"><img src="./img/icons/throw.png" alt="" /></button>
-      </div>
-    </div>
-    <!-- </div> -->
     <div class="start_screen" id="startStreen">
       <img class="start_screen_bg_image" src="./img/9_intro_outro_screens/start/startscreen_2.png" alt="" />
       <div class="upper_btns_container">

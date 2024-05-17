@@ -122,7 +122,7 @@ function startScreenToPlayScreen() {
   document.getElementById("canvas").classList.remove("d_none");
   document.getElementById("responsiveButtonContainer").classList.remove("d_none");
   document.getElementById("canvasButtonContainer").classList.remove("d_none");
-  // document.getElementById("canvasContainer").classList.remove("d_none");
+  document.getElementById("canvasContainer").classList.remove("d_none");
 }
 
 /**
@@ -131,7 +131,7 @@ function startScreenToPlayScreen() {
  */
 function looseScreenToStartScreen() {
   document.getElementById("looseScreen").classList.add("d_none");
-  // document.getElementById("canvasContainer").classList.add("d_none");
+  document.getElementById("canvasContainer").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
@@ -142,7 +142,7 @@ function looseScreenToStartScreen() {
  */
 function winScreenToStartScreen() {
   document.getElementById("winScreen").classList.add("d_none");
-  // document.getElementById("canvasContainer").classList.add("d_none");
+  document.getElementById("canvasContainer").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
@@ -192,25 +192,35 @@ function backToStartScreen() {
 }
 
 /**
- * A description of the entire function.
+ * Toggles the user manual visibility based on the current state.
  *
- * @param {type} paramName - description of parameter
- * @return {type} description of return value
+ * @param {} - No parameters.
+ * @return {} - No return value.
  */
-function showUserManuelContainer() {
-  document.getElementById("userManualContainer").classList.remove("d_none");
+function toggleUserManual() {
+  let userManualContainer = document.getElementById("userManualContainer");
+  if (userManualContainer.classList.contains("d_none")) {
+    showUserManuelContainer();
+  } else {
+    hideUserManuelContainer();
+  }
   event.stopPropagation();
 }
 
 /**
- * Hides the user manual container if it is not already hidden.
+ * A description of the entire function.
+ *
+ */
+function showUserManuelContainer() {
+  document.getElementById("userManualContainer").classList.remove("d_none");
+}
+
+/**
+ * A description of the entire function.
  *
  */
 function hideUserManuelContainer() {
-  let userManualContainer = document.getElementById("userManualContainer");
-  if (!userManualContainer.classList.contains("d_none")) {
-    userManualContainer.classList.add("d_none");
-  }
+  document.getElementById("userManualContainer").classList.add("d_none");
 }
 
 /**

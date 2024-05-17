@@ -54,6 +54,7 @@ h3 {
   align-items: center;
   position: absolute;
   top: 0;
+  z-index: 99;
 }
 
 .img_home {
@@ -123,7 +124,7 @@ h3 {
   padding: 24px;
   width: 30%;
   position: absolute;
-  top: 200%;
+  top: 100%;
 }
 
 .start_screen button,
@@ -259,7 +260,7 @@ img {
 .absolut_top_0 {
   position: absolute;
   top: 0;
-  z-index: 99;
+  z-index: 90;
 }
 
 .rotate_screen {

@@ -73,7 +73,7 @@ class World {
     setInterval(() => {
       this.checkCollisions();
       this.endbossApproaches();
-    }, 10000 / 200);
+    }, 1000 / 200);
     setInterval(() => {
       this.checkCollisionEndboss();
     }, 300);
@@ -149,7 +149,7 @@ class World {
     this.level.endboss.forEach((enemy) => {
       this.reduceEnergy(enemy, "40");
     });
-    checkCollisionCollectables();
+    this.checkCollisionCollectables();
   }
 
   /**
