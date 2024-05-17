@@ -51,10 +51,6 @@
   .upper_btns_container {
     width: 100%;
   }
-
-  h1 {
-    display: none;
-  }
 }
 
 @media only screen and (max-height: 480px) {
@@ -88,7 +84,7 @@
     border-radius: 0;
   }
 
-  h1 {
+  br {
     display: none;
   }
 }
@@ -112,6 +108,7 @@
 
   body {
     overflow: hidden;
+    position: fixed;
   }
 
   .white_info_container_rotateScreen {

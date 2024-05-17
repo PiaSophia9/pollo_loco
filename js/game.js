@@ -122,7 +122,7 @@ function startScreenToPlayScreen() {
   document.getElementById("canvas").classList.remove("d_none");
   document.getElementById("responsiveButtonContainer").classList.remove("d_none");
   document.getElementById("canvasButtonContainer").classList.remove("d_none");
-  document.getElementById("canvasContainer").classList.remove("d_none");
+  // document.getElementById("canvasContainer").classList.remove("d_none");
 }
 
 /**
@@ -131,7 +131,7 @@ function startScreenToPlayScreen() {
  */
 function looseScreenToStartScreen() {
   document.getElementById("looseScreen").classList.add("d_none");
-  document.getElementById("canvasContainer").classList.add("d_none");
+  // document.getElementById("canvasContainer").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
@@ -142,7 +142,7 @@ function looseScreenToStartScreen() {
  */
 function winScreenToStartScreen() {
   document.getElementById("winScreen").classList.add("d_none");
-  document.getElementById("canvasContainer").classList.add("d_none");
+  // document.getElementById("canvasContainer").classList.add("d_none");
   document.getElementById("startStreen").classList.remove("d_none");
   clearAllIntervals();
 }
