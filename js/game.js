@@ -15,7 +15,6 @@ let muteAudio = false;
  */
 function init() {
   canvas = document.getElementById("canvas");
-  console.log("die Seite befindet sich im Fullscreen-Modus:", isFullscreen);
 }
 
 /**
