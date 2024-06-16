@@ -89,10 +89,16 @@
   }
 }
 
-@media screen and (orientation: portrait) and (min-height: 650px) and (max-width: 720px) {
+/* Portrait, wenn die Breite kleiner ist als die Höhe.
+max-width, damit der rotation-screen erst kommt, wenn die Breite schmal ist, wie auf einem Tablet oder Handy. Ohne diese Breite kommt der rotation-screen auch dann, wenn man auf dem Desktop ein Fesnster offen hat, was einfach höher ist als Breit. */
+
+/* @media screen and (orientation: portrait) { */
+@media screen and (orientation: portrait) and (max-width: 768px) {
   .rotate_screen {
+    display: flex;
     position: absolute;
     top: 0;
+    left: 0;
     z-index: 100;
     width: 100%;
     height: 100%;
@@ -100,7 +106,6 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center bottom;
-    display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -124,8 +129,8 @@
   }
 
   .rotate_img {
-    width: 20%;
-    height: 20%;
+    width: 40px;
+    height: 40px;
   }
 
   .rotate_text {

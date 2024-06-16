@@ -15,6 +15,7 @@ let muteAudio = false;
  */
 function init() {
   canvas = document.getElementById("canvas");
+  console.log("die Seite befindet sich im Fullscreen-Modus:", isFullscreen);
 }
 
 /**
@@ -296,35 +297,89 @@ function playAllAudio() {
 /**
  * A description of the entire function.
  *
- */
+//  */
+// function fullscreen() {
+//   let fullscreenContainer = document.getElementById("fullScreenContainer");
+//   openFullscreen(fullscreenContainer);
+//   let fullStartScreen = document.getElementById("start_screen");
+//   document.getElementById("startStreen").classList.add("full_screen");
+//   openFullscreen(fullStartScreen);
+//   let fullLooseScreen = document.getElementById("looseScreen");
+//   openFullscreen(fullLooseScreen);
+//   let fullWinScreen = document.getElementById("winScreen");
+//   openFullscreen(fullWinScreen);
+//   let fullUserManuelScreen = document.getElementById("userManual");
+//   openFullscreen(fullUserManuelScreen);
+//   let fullUserImprintScreen = document.getElementById("imprint");
+//   openFullscreen(fullUserImprintScreen);
+// }
+
+// /**
+//  * A description of the entire function.
+//  *
+//  * @param {type} elem - description of parameter
+//  * @return {type} description of return value
+//  */
+// function openFullscreen(elem) {
+//   if (elem.requestFullscreen) {
+//     elem.requestFullscreen();
+//   } else if (elem.webkitRequestFullscreen) {
+//     elem.webkitRequestFullscreen();
+//   } else if (elem.msRequestFullscreen) {
+//     elem.msRequestFullscreen();
+//   }
+// }
+
+// /**
+//  * A description of the entire function.
+//  *
+//  */
+// function closeFullscreen() {
+//   if (document.exitFullscreen) {
+//     document.exitFullscreen();
+//   } else if (document.webkitExitFullscreen) {
+//     document.webkitExitFullscreen();
+//   } else if (document.msExitFullscreen) {
+//     document.msExitFullscreen();
+//   }
+// }
+
+// Da soben spricht die ganze Seite an
+// let canvasContainer = document.getElementById("canvasContainer");
+// let startStreenContainer = document.getElementById("startStreen");
+// let looseScreenContainer = document.getElementById("looseScreen");
+// let winScreenContainer = document.getElementById("winScreen");
+// let userManualContainer = document.getElementById("userManual");
+// let imprintContainer = document.getElementById("imprint");
+let isFullscreen = false;
+
 function fullscreen() {
-  let fullscreenContainer = document.getElementById("fullScreenContainer");
-  openFullscreen(fullscreenContainer);
-  let fullStartScreen = document.getElementById("start_screen");
-  document.getElementById("startStreen").classList.add("full_screen");
-  openFullscreen(fullStartScreen);
-  let fullLooseScreen = document.getElementById("looseScreen");
-  openFullscreen(fullLooseScreen);
-  let fullWinScreen = document.getElementById("winScreen");
-  openFullscreen(fullWinScreen);
-  let fullUserManuelScreen = document.getElementById("userManual");
-  openFullscreen(fullUserManuelScreen);
-  let fullUserImprintScreen = document.getElementById("imprint");
-  openFullscreen(fullUserImprintScreen);
+  let elem = document.getElementById("fullScreenContainer");
+  toggleFullscreen(elem);
+  console.log("die Seite befindet sich im Fullscreen-Modus:", isFullscreen);
 }
 
-/**
- * A description of the entire function.
- *
- * @param {type} elem - description of parameter
- * @return {type} description of return value
- */
+function toggleFullscreen(elem) {
+  if (isFullscreen) {
+    isFullscreen = false;
+    closeFullscreen();
+    resetCanvasSize();
+  } else {
+    isFullscreen = true;
+    openFullscreen(elem);
+    setCanvasToFullscreen();
+  }
+  // isFullscreen = !isFullscreen;
+}
+
 function openFullscreen(elem) {
   if (elem.requestFullscreen) {
     elem.requestFullscreen();
   } else if (elem.webkitRequestFullscreen) {
+    /* Safari */
     elem.webkitRequestFullscreen();
   } else if (elem.msRequestFullscreen) {
+    /* IE11 */
     elem.msRequestFullscreen();
   }
 }
@@ -341,4 +396,17 @@ function closeFullscreen() {
   } else if (document.msExitFullscreen) {
     document.msExitFullscreen();
   }
+}
+
+function setCanvasToFullscreen() {
+  const canvas = document.getElementById("canvas");
+  document.getElementById("canvas").classList.add("fullWidth");
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+function resetCanvasSize() {
+  const canvas = document.getElementById("canvas");
+  canvas.width = 720; // Originale Breite
+  canvas.height = 480; // Originale Höhe
 }
